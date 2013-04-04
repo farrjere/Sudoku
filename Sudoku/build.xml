@@ -1,0 +1,84 @@
+<project name="Sudoku" default="run">
+	<property name="src.dir" location="src" />
+	<property name="test.dir" location="tst" />
+	<property name="build.dir" location="build" />
+	<property name="build.src.dir" location="${build.dir}/src" />
+	<property name="build.test.dir" location="${build.dir}/test" />
+	<property name="dist.dir" location="dist" />
+	<property name="lib.dir" location="lib" />
+	<property name="reports.dir" location="reports" />
+	<property name="jar_name" value="${project_name}.jar" />
+	
+	<path id="lib.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+				
+		
+	<path id="combined.classpath">
+		<path refid="lib.classpath"/>
+		<pathelement location="${build.src.dir}" />
+		<pathelement location="${build.test.dir}" />
+		<pathelement location="${test.dir}" />
+	</path>
+	
+	<!--This target is responsible for compiling all class files -->
+	<target name="compile" depends="init" description="compile the source code">
+		<javac srcdir="${src.dir}" destdir="${build.src.dir}" classpathref="combined.classpath" includeantruntime="no"/>
+		<javac srcdir="${test.dir}" destdir="${build.test.dir}" classpathref="combined.classpath" includeantruntime="no" />
+	</target>
+	
+	<!--This target compiles the jar to be distributed and outputs it to the dist.dir directory. 
+		In the future it would be nice to have the dist.dir set by a properties file and then we could
+		handle deploying the jar to the correct path across all systems that will use address
+	    standardization  -->
+	<target name="dist" depends="compile,test" description="generate the distributable files">
+		<jar jarfile="${dist.dir}/Sudoku.jar" basedir="${build.src.dir}">
+			<exclude name="**/*Test*.class"/>
+		</jar>	
+	</target>
+	
+	<!--Cleans up unneeded resources -->
+	<target name="clean" description="clean up">
+		<delete dir="${build.dir}" />
+	</target>
+	
+	<!--This target runs unit tests, in order to be picked up the tests must be in the test.dir directory -->
+	<target name="run-tests" depends="compile" description="run your test suite">
+		<junit printsummary="yes" haltonfailure="no"  showoutput="yes">
+			<classpath>
+				<path refid="combined.classpath"/>
+			</classpath>
+
+			<batchtest todir="${reports.dir}" haltonerror="no" >
+				<formatter type="xml" />
+				<fileset dir="${build.test.dir}">
+					<include name="**/*Test.class" />
+				</fileset>	
+			</batchtest>
+		</junit>
+	</target>
+	
+	<!-- Run tests and output results -->
+	<target name="test" depends="run-tests">
+		<junitreport todir="${reports.dir}">
+			<fileset dir="${reports.dir}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${reports.dir}" />
+		</junitreport>
+	</target>
+	
+	<!--To run a full build call this target -->
+	<target name="run" depends="dist,clean" description="if this project can be run, run it" />
+
+	<target name="init" description="initialize the build environment">
+		<tstamp />
+		<mkdir dir="${build.src.dir}" />
+		<mkdir dir="${build.test.dir}" />
+		<mkdir dir="${lib.dir}" />
+		<mkdir dir="${reports.dir}" />
+	</target>
+	<target name="all" depends="clean, test" />
+</project>
