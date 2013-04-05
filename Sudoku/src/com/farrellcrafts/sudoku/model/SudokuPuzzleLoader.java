@@ -11,12 +11,12 @@ public class SudokuPuzzleLoader {
 		XML, SQL, DEFAULT;
 	}
 	
-	SudokuPuzzleLoader(){
+	public SudokuPuzzleLoader(){
 		source = DataSource.DEFAULT;
 		puzzles = loadData();
 	}
 	
-	SudokuPuzzleLoader(DataSource source){
+	public SudokuPuzzleLoader(DataSource source){
 		this.source = source;
 		puzzles = loadData();
 	}
@@ -50,7 +50,7 @@ public class SudokuPuzzleLoader {
 		return puzzles;
 	}
 	
-	public static Map<Integer, SudokuPuzzle> defaultData(){
+	private static Map<Integer, SudokuPuzzle> defaultData(){
 		int[][] initialValues = new int[][]{
 				{7,1,0,0,0,5,6,0,0},
 				{4,5,0,2,3,0,1,0,7},

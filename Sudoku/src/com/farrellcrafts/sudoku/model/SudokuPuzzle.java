@@ -38,9 +38,12 @@ final public class SudokuPuzzle {
 				if(cell.getValue() == 0){
 					int value = solutionGrid[row][col].getValue();
 					cell.setValue(value);
-					hint = new Hint(row, col, value);
+					return new Hint(row, col, String.valueOf(value));
 				}
 			}
+		}
+		if(hint == null){
+			
 		}
 		return hint;
 	}
@@ -61,8 +64,13 @@ final public class SudokuPuzzle {
 		return values;
 	}
 	
-	public int getCellValue(int row, int col){
-		return currentGrid[row][col].getValue();
+	public String getCellValue(int row, int col){
+		int val = currentGrid[row][col].getValue();
+		if(val != 0){
+			return String.valueOf(val);
+		}else{
+			return " ";
+		}
 	}
 	
 	/**
@@ -104,12 +112,17 @@ final public class SudokuPuzzle {
 		return true;
 	}
 	
-	public int[][] getCurrentBoard(){
-		int[][] values = new int[size][size];
+	public String[][] getCurrentBoard(){
+		String[][] values = new String[size][size];
 		for(int row = 0; row < size; row++){
 			for(int col = 0; col < size; col++){
 				Cell cell = currentGrid[row][col];
-				values[row][col] = cell.getValue();
+				int val = cell.getValue();
+				if(val == 0){
+					values[row][col] = " ";
+				}else{
+					values[row][col] = String.valueOf(val);
+				}
 			}
 		}
 		return values;

@@ -1,33 +1,35 @@
 package com.farrellcrafts.sudoku.view;
 
+import com.farrellcrafts.sudoku.view.action_listeners.HintActionListener;
+import com.farrellcrafts.sudoku.view.action_listeners.NewActionListener;
+import com.farrellcrafts.sudoku.view.action_listeners.ResetActionListener;
+import com.farrellcrafts.sudoku.view.action_listeners.SolveActionListener;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 public class MenuPane extends JPanel {
-
-	private static final long serialVersionUID = -6468789670881421118L;
+	private static final long serialVersionUID = 678727189285841459L;
+	private JButton solveButton;
+	private JButton newButton;
+	private JButton hintButton;
+	private JButton resetButton;
+	
 	public MenuPane() {
 		setBorder(new EmptyBorder(4, 4, 4, 4));
 		setLayout(new GridBagLayout());
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = 0;
-		gbc.gridy = 1;
-		gbc.weightx = 1;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
-		JButton solveButton = new JButton("Solve");
-		JButton newButton = new JButton("New");
-		JButton hintButton = new JButton("Hint");
-		JButton resetButton = new JButton("Reset");
-		solveButton.addActionListener(new SolveAction());
-		newButton.addActionListener(new NewAction());
-		hintButton.addActionListener(new HintAction());
-		resetButton.addActionListener(new ResetAction());
+		initializeButtons();
+	}
+	
+	private void initializeButtons() {		
+	    GridBagConstraints gbc = setupConstraints();
+		solveButton = new JButton("Solve");
+		newButton = new JButton("New");
+		hintButton = new JButton("Hint");
+		resetButton = new JButton("Reset");
+	    //Add all buttons to out JPanel 
 		add(solveButton, gbc);
 		gbc.gridy++;
 		add(newButton, gbc);
@@ -36,41 +38,29 @@ public class MenuPane extends JPanel {
 		gbc.gridy++;
 		add(resetButton, gbc);
 	}
-	
-	private class SolveAction implements ActionListener{
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+	private GridBagConstraints setupConstraints(){
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.weightx = 1;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		return gbc;
 	}
 	
-	private class HintAction implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+	public void addListener(SolveActionListener listener){
+		solveButton.addActionListener(listener);
 	}
 	
-	private class NewAction implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+	public void addListener(ResetActionListener listener){
+		resetButton.addActionListener(listener);
 	}
 	
-	private class ResetAction implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+	public void addListener(HintActionListener listener){
+		hintButton.addActionListener(listener);
 	}
-
+	
+	public void addListener(NewActionListener listener){
+		newButton.addActionListener(listener);
+	}
 }

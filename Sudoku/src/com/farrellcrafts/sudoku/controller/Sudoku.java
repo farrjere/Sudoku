@@ -1,45 +1,37 @@
 package com.farrellcrafts.sudoku.controller;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
-import com.farrellcrafts.sudoku.view.MenuPane;
+import com.farrellcrafts.sudoku.model.SudokuPuzzle;
+import com.farrellcrafts.sudoku.model.SudokuPuzzleLoader;
 import com.farrellcrafts.sudoku.view.SudokuBoard;
+import com.farrellcrafts.sudoku.view.action_listeners.*;
 
 public class Sudoku {
 	private SudokuBoard board;
+	private SudokuPuzzleLoader loader;
+	private SudokuPuzzle currentPuzzle;
+	private NewActionListener newListener;
+	private ResetActionListener resetListener;
+	private HintActionListener hintListener;
+	private SolveActionListener solveListener;
+	
 	public static void main(String[] args) {
 		new Sudoku();
 	}
 
 	public Sudoku() {
-		board = new SudokuBoard();
-		buildAndSetVisible();
+		initialize();
 	}
 	
-	private void buildAndSetVisible(){
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-				} catch (ClassNotFoundException ex) {
-				} catch (InstantiationException ex) {
-				} catch (IllegalAccessException ex) {
-				} catch (UnsupportedLookAndFeelException ex) {
-				}
-
-				JFrame frame = new JFrame();
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setLayout(new BorderLayout());
-				frame.add(board);
-				frame.add(new MenuPane(), BorderLayout.AFTER_LINE_ENDS);
-				frame.pack();
-				frame.setVisible(true);
-			}
-		});
+	private void initialize(){
+		loader = new SudokuPuzzleLoader();
+		currentPuzzle = loader.getNextPuzzle();
+		board = new SudokuBoard(currentPuzzle.getCurrentBoard());
+		hintListener = new HintActionListener(board, currentPuzzle);
+		newListener = new NewActionListener();
+		resetListener = new ResetActionListener();
+		solveListener = new SolveActionListener();
+		board.setListenersOnMenu(hintListener, newListener, resetListener, solveListener);
 	}
+	
+	
 }

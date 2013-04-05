@@ -37,5 +37,11 @@ public class ChildBoard extends JPanel {
 		
 		return sizeFilter;
 	}
+	
+	public void setCellValue(int row, int col, String value, boolean editable){
+		JTextField field = fields[row][col];
+		field.setText(value);
+		field.setEditable(editable);
+	}
 
 }
