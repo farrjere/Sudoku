@@ -91,6 +91,20 @@ public class SudokuBoard extends JPanel implements Runnable {
 	public void setCellValue(int row, int col, String value){
 		setCellValue(row, col, value, true);
 	}
+	
+	public void setBoardValues(String[][] values){
+		int size = values.length;
+		for(int row = 0; row < size; row++){
+			for(int col = 0; col < size; col++){
+				String value = values[row][col];
+				if(value == ""){
+					setCellValue(row, col, value, true);
+				}else{
+					setCellValue(row, col, value, false);
+				}
+			}
+		}
+	}
 
 	private void setCellValue(int row, int column, String value, boolean editable) {
 		int boardRow = row / ROWS;

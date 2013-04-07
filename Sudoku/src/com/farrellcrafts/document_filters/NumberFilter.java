@@ -52,7 +52,7 @@ public class NumberFilter extends ChainedDocumentFilter {
 
 	@Override
 	public void replace(FilterBypass fb, int offs, int length, String str, AttributeSet a) throws BadLocationException {
-		if(isNumeric(str)){
+		if(isNumeric(str)||str==""){
 			super.replace(fb, offs, length, str, a);
 		}
 	}

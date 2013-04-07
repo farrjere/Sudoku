@@ -52,13 +52,18 @@ final public class SudokuPuzzle {
 	 * This function resets the SudokuPuzzle to its original state
 	 * @return the SudokuPuzzle as it was created
 	 */
-	public int[][] reset(){
-		int[][] values = new int[size][size];
+	public String[][] reset(){
+		String[][] values = new String[size][size];
 		for(int row = 0; row < size; row++){
 			for(int col = 0; col < size; col++){
 				Cell cell = currentGrid[row][col];
 				cell.clearValue();
-				values[row][col] = cell.getValue();
+				int value = cell.getValue();
+				if(value == 0){
+					values[row][col] = "";
+				}else{
+					values[row][col] = String.valueOf(value);
+				}
 			}
 		}
 		return values;
@@ -69,7 +74,7 @@ final public class SudokuPuzzle {
 		if(val != 0){
 			return String.valueOf(val);
 		}else{
-			return " ";
+			return "";
 		}
 	}
 	
@@ -78,13 +83,14 @@ final public class SudokuPuzzle {
 	 * to the solution
 	 * @return the values of the solution
 	 */
-	public int[][] getSolution(){
+	public String[][] getSolution(){
 		currentGrid = solutionGrid;
-		int[][] values = new int[size][size];
+		String[][] values = new String[size][size];
 		for(int row = 0; row < size; row++){
 			for(int col = 0; col < size; col++){
 				Cell cell = currentGrid[row][col];
-				values[row][col] = cell.getValue();
+				int value = cell.getValue();
+				values[row][col] = String.valueOf(value);
 			}
 		}
 		return values;
@@ -119,7 +125,7 @@ final public class SudokuPuzzle {
 				Cell cell = currentGrid[row][col];
 				int val = cell.getValue();
 				if(val == 0){
-					values[row][col] = " ";
+					values[row][col] = "";
 				}else{
 					values[row][col] = String.valueOf(val);
 				}
@@ -141,20 +147,20 @@ final public class SudokuPuzzle {
 		int hashCode = 23;
 		for(int row = 0; row<size; row++){
 			for(int col =0; col<size; col++){
-				hashCode = solutionGrid[row][col].getValue() * MULTI + row * MULTI + col * MULTI;						
+				hashCode += solutionGrid[row][col].getValue() * MULTI + row * MULTI + col * MULTI;						
 			}
 		}
 		return hashCode;
 	}
 	
 	private boolean boxLine(int num){
-		return (num+1) % boxSize == 0 && (num+1) != size;
+		return (num + 1) % boxSize == 0 && (num + 1) != size;
 	}
 	
 	@Override
 	public String toString(){
 		StringBuilder sBuilder = new StringBuilder();
-		for(int row = 0; row<size; row++){
+		for(int row = 0; row < size; row++){
 			sBuilder.append("||");
 			for(int col =0; col<size; col++){
 				sBuilder.append(currentGrid[row][col].toString());

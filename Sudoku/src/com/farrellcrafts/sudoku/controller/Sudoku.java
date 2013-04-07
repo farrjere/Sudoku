@@ -27,9 +27,9 @@ public class Sudoku {
 		currentPuzzle = loader.getNextPuzzle();
 		board = new SudokuBoard(currentPuzzle.getCurrentBoard());
 		hintListener = new HintActionListener(board, currentPuzzle);
-		newListener = new NewActionListener();
-		resetListener = new ResetActionListener();
-		solveListener = new SolveActionListener();
+		newListener = new NewActionListener(loader, board, currentPuzzle);
+		resetListener = new ResetActionListener(board, currentPuzzle);
+		solveListener = new SolveActionListener(board, currentPuzzle);
 		board.setListenersOnMenu(hintListener, newListener, resetListener, solveListener);
 	}
 	
