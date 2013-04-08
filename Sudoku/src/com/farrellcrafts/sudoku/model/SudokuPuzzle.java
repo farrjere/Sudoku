@@ -1,7 +1,8 @@
 package com.farrellcrafts.sudoku.model;
 
+import java.util.Arrays;
+
 final public class SudokuPuzzle {
-	private static final int MULTI = 7;
 	private Cell[][] currentGrid;
 	private Cell[][] solutionGrid;
 	private Difficulty difficulty;
@@ -79,18 +80,20 @@ final public class SudokuPuzzle {
 	}
 	
 	/**
-	 * Returns the solution and sets the state of the current Sudoku board 
-	 * to the solution
+	 * Returns the solution and resets the state of the current Sudoku board 
+	 * to its original state
 	 * @return the values of the solution
 	 */
 	public String[][] getSolution(){
-		currentGrid = solutionGrid;
 		String[][] values = new String[size][size];
 		for(int row = 0; row < size; row++){
 			for(int col = 0; col < size; col++){
-				Cell cell = currentGrid[row][col];
+				Cell cell = solutionGrid[row][col];
 				int value = cell.getValue();
 				values[row][col] = String.valueOf(value);
+				
+				Cell currentCell = currentGrid[row][col];
+				currentCell.clearValue();
 			}
 		}
 		return values;
@@ -142,15 +145,15 @@ final public class SudokuPuzzle {
 		return userSolved;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
-	public int hashCode(){
-		int hashCode = 23;
-		for(int row = 0; row<size; row++){
-			for(int col =0; col<size; col++){
-				hashCode += solutionGrid[row][col].getValue() * MULTI + row * MULTI + col * MULTI;						
-			}
-		}
-		return hashCode;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(solutionGrid);
+		return result;
 	}
 	
 	private boolean boxLine(int num){
@@ -175,6 +178,27 @@ final public class SudokuPuzzle {
 		return sBuilder.toString();
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		SudokuPuzzle other = (SudokuPuzzle) obj;
+		if (!Arrays.deepEquals(solutionGrid, other.solutionGrid)) {
+			return false;
+		}
+		return true;
+	}
+
 	private void checkSizeSquare(){
 		if(boxSize*boxSize != size){
 			throw new IllegalArgumentException("Only square puzzles are supported at this time");

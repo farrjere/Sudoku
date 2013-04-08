@@ -14,6 +14,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import com.farrellcrafts.sudoku.model.Difficulty;
 import com.farrellcrafts.sudoku.view.action_listeners.*;
 
 public class SudokuBoard extends JPanel implements Runnable {
@@ -90,6 +91,10 @@ public class SudokuBoard extends JPanel implements Runnable {
 	
 	public void setCellValue(int row, int col, String value){
 		setCellValue(row, col, value, true);
+	}
+	
+	public Difficulty getDifficulty(){
+		return menu.getDifficulty();
 	}
 	
 	public void setBoardValues(String[][] values){

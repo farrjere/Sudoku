@@ -1,13 +1,19 @@
 package com.farrellcrafts.sudoku.view;
 
+import com.farrellcrafts.sudoku.model.Difficulty;
 import com.farrellcrafts.sudoku.view.action_listeners.HintActionListener;
 import com.farrellcrafts.sudoku.view.action_listeners.NewActionListener;
 import com.farrellcrafts.sudoku.view.action_listeners.ResetActionListener;
 import com.farrellcrafts.sudoku.view.action_listeners.SolveActionListener;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.Enumeration;
+
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
 public class MenuPane extends JPanel {
@@ -16,6 +22,7 @@ public class MenuPane extends JPanel {
 	private JButton newButton;
 	private JButton hintButton;
 	private JButton resetButton;
+	private ButtonGroup group;
 	
 	public MenuPane() {
 		setBorder(new EmptyBorder(4, 4, 4, 4));
@@ -23,20 +30,38 @@ public class MenuPane extends JPanel {
 		initializeButtons();
 	}
 	
+
 	private void initializeButtons() {		
 	    GridBagConstraints gbc = setupConstraints();
-		solveButton = new JButton("Solve");
+		
+	    group = new ButtonGroup();
+	    JRadioButton easy = new JRadioButton(Difficulty.EASY.toString());
+	    easy.setSelected(true);
+	    JRadioButton medium = new JRadioButton(Difficulty.MEDIUM.toString());
+	    JRadioButton hard = new JRadioButton(Difficulty.HARD.toString());
+	    group.add(easy);
+	    group.add(medium);
+	    group.add(hard);
+	    
+	    solveButton = new JButton("Solve");
 		newButton = new JButton("New");
 		hintButton = new JButton("Hint");
 		resetButton = new JButton("Reset");
 	    //Add all buttons to out JPanel 
-		add(solveButton, gbc);
+		add(easy, gbc);
+		gbc.gridy++;
+		add(medium, gbc);
+		gbc.gridy++;
+		add(hard, gbc);
 		gbc.gridy++;
 		add(newButton, gbc);
 		gbc.gridy++;
 		add(hintButton, gbc);
 		gbc.gridy++;
 		add(resetButton, gbc);
+		gbc.gridy++;
+		add(solveButton, gbc);
+		
 	}
 
 	private GridBagConstraints setupConstraints(){
@@ -63,4 +88,16 @@ public class MenuPane extends JPanel {
 	public void addListener(NewActionListener listener){
 		newButton.addActionListener(listener);
 	}
+	
+	public Difficulty getDifficulty(){
+		for (Enumeration<AbstractButton> buttons = group.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+
+            if (button.isSelected()) {
+                return Difficulty.getDifficulty(button.getText());
+            }
+        }
+        return null;
+    }
+	
 }

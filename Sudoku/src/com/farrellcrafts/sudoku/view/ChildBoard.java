@@ -40,8 +40,10 @@ public class ChildBoard extends JPanel {
 	
 	public void setCellValue(int row, int col, String value, boolean editable){
 		JTextField field = fields[row][col];
-		field.setText(value);
+		//first clear the cell of its original contents
+		field.setText("");
 		field.setEditable(editable);
+		field.setText(value);
 	}
 
 }
