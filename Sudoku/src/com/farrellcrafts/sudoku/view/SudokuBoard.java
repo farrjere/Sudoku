@@ -17,21 +17,23 @@ import javax.swing.border.LineBorder;
 import com.farrellcrafts.sudoku.model.Difficulty;
 import com.farrellcrafts.sudoku.view.action_listeners.*;
 
-public class SudokuBoard extends JPanel implements Runnable {
+public class SudokuBoard extends JPanel  {
 
 	private static final long serialVersionUID = 3242846960946212517L;
 	public static final int ROWS = 3;
 	public static final int COLUMNS = 3;
 	public static final int SIZE = 400;
 	private ChildBoard[][] subBoards;
-	private MenuPane menu;
+
 	public SudokuBoard(String[][] initialValues) {
 		setupBoard(initialValues);
-		buildAndSetVisible();
 	}
 	
+	public SudokuBoard() {
+		// TODO Auto-generated constructor stub
+	}
+
 	private void setupBoard(String[][] initialValues){
-		menu = new MenuPane();
 		setPreferredSize(new Dimension(SIZE, SIZE));
 		setBorder(new EmptyBorder(4, 4, 4, 4));
 		subBoards = new ChildBoard[ROWS][COLUMNS];
@@ -56,45 +58,8 @@ public class SudokuBoard extends JPanel implements Runnable {
 		}
 	}
 	
-	private void buildAndSetVisible(){
-		EventQueue.invokeLater(this);
-	}
-
-	@Override
-	public void run() {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException ex) {
-		} catch (InstantiationException ex) {
-		} catch (IllegalAccessException ex) {
-		} catch (UnsupportedLookAndFeelException ex) {
-		}
-
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new BorderLayout());
-		frame.add(this);
-		frame.add(menu, BorderLayout.AFTER_LINE_ENDS);
-		frame.pack();
-		frame.setVisible(true);
-	}
-	
-	public void setListenersOnMenu(HintActionListener hint,
-			NewActionListener newAction,
-			ResetActionListener reset,
-			SolveActionListener solve){
-		menu.addListener(hint);
-		menu.addListener(newAction);
-		menu.addListener(reset);
-		menu.addListener(solve);
-	}
-	
 	public void setCellValue(int row, int col, String value){
 		setCellValue(row, col, value, true);
-	}
-	
-	public Difficulty getDifficulty(){
-		return menu.getDifficulty();
 	}
 	
 	public void setBoardValues(String[][] values){
