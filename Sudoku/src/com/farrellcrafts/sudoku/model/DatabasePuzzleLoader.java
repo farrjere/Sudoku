@@ -16,7 +16,6 @@ public class DatabasePuzzleLoader implements PuzzleLoader {
 		Connection conn = null;
 		try{
 			conn = getConnection();
-			
 		}catch(Exception e){
 			throw new LoadDataException(e.getMessage());
 		}finally{
@@ -27,7 +26,6 @@ public class DatabasePuzzleLoader implements PuzzleLoader {
 			}
 		}
 	}
-	
 	
 	//Returns a connection to the puzzles database 
 	private Connection getConnection() throws ClassNotFoundException, SQLException{
@@ -72,6 +70,8 @@ public class DatabasePuzzleLoader implements PuzzleLoader {
 	}
 	
 	public class LoadDataException extends Exception{
+		private static final long serialVersionUID = 1L;
+
 		LoadDataException(String message){
 			super(message);
 		}

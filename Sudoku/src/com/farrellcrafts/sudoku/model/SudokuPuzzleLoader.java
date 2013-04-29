@@ -30,7 +30,7 @@ public class SudokuPuzzleLoader {
 	
 	/**
 	 * Constructor that uses the specified data source
-	 * @param source
+	 * @param source the data source that the puzzles will be loaded from
 	 */
 	public SudokuPuzzleLoader(DataSource source){
 		this.source = source;
@@ -66,7 +66,8 @@ public class SudokuPuzzleLoader {
 	}
 	
 	/**
-	 * 
+	 * A helper function for loading all puzzles
+	 * If SQL or XML is specified as the data source and they fail the default data source will be tried instead 
 	 * @return
 	 */
 	private Map<Integer, SudokuPuzzle> loadData(){
@@ -96,6 +97,4 @@ public class SudokuPuzzleLoader {
 	public SudokuPuzzle getCurrentPuzzle() {
 		return currentPuzzle;
 	}
-	
-	
 }

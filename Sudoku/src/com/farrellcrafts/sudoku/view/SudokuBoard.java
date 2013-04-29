@@ -1,21 +1,15 @@
 package com.farrellcrafts.sudoku.view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.GridLayout;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import com.farrellcrafts.sudoku.model.Difficulty;
-import com.farrellcrafts.sudoku.view.action_listeners.*;
 
 public class SudokuBoard extends JPanel  {
 
@@ -24,13 +18,9 @@ public class SudokuBoard extends JPanel  {
 	public static final int COLUMNS = 3;
 	public static final int SIZE = 400;
 	private ChildBoard[][] subBoards;
-
-	public SudokuBoard(String[][] initialValues) {
-		setupBoard(initialValues);
-	}
 	
-	public SudokuBoard() {
-		// TODO Auto-generated constructor stub
+	public SudokuBoard(String[][] initialValues){
+		setupBoard(initialValues);
 	}
 
 	private void setupBoard(String[][] initialValues){
@@ -38,24 +28,8 @@ public class SudokuBoard extends JPanel  {
 		setBorder(new EmptyBorder(4, 4, 4, 4));
 		subBoards = new ChildBoard[ROWS][COLUMNS];
 		setLayout(new GridLayout(ROWS, COLUMNS, 2, 2));
-		for (int row = 0; row < ROWS; row++) {
-			for (int col = 0; col < COLUMNS; col++) {
-				ChildBoard board = new ChildBoard(ROWS, COLUMNS);
-				board.setBorder(new CompoundBorder(new LineBorder(Color.GRAY, 3), new EmptyBorder(4, 4, 4, 4)));
-				subBoards[row][col] = board;
-				add(board);
-			}
-		}
-		for(int row = 0; row < initialValues.length; row++){
-			for(int col = 0; col < initialValues.length; col++){
-				String value = initialValues[row][col];
-				if(value.matches("[0-9]")){
-					setCellValue(row, col, value, false);
-				}else{
-					setCellValue(row, col, value, true);
-				}
-			}
-		}
+		initializeChildBoards();
+		setBoardValues(initialValues);
 	}
 	
 	public void setCellValue(int row, int col, String value){
@@ -67,11 +41,22 @@ public class SudokuBoard extends JPanel  {
 		for(int row = 0; row < size; row++){
 			for(int col = 0; col < size; col++){
 				String value = values[row][col];
-				if(value == ""){
+				if(value == "" || value == null){
 					setCellValue(row, col, value, true);
 				}else{
 					setCellValue(row, col, value, false);
 				}
+			}
+		}
+	}
+	
+	private void initializeChildBoards(){
+		for (int row = 0; row < ROWS; row++) {
+			for (int col = 0; col < COLUMNS; col++) {
+				ChildBoard board = new ChildBoard(ROWS, COLUMNS);
+				board.setBorder(new CompoundBorder(new LineBorder(Color.GRAY, 3), new EmptyBorder(4, 4, 4, 4)));
+				subBoards[row][col] = board;
+				add(board);
 			}
 		}
 	}
@@ -93,5 +78,4 @@ public class SudokuBoard extends JPanel  {
 		
 		subBoards[boardRow][boardCol].setCellValue(subRow, subCol, value, editable);
 	}
-
 }

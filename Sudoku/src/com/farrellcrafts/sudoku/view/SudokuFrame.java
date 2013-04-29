@@ -2,29 +2,34 @@ package com.farrellcrafts.sudoku.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import com.farrellcrafts.sudoku.model.Difficulty;
+import com.farrellcrafts.sudoku.view.action_listeners.GameModeListener;
 import com.farrellcrafts.sudoku.view.action_listeners.HintActionListener;
 import com.farrellcrafts.sudoku.view.action_listeners.NewActionListener;
 import com.farrellcrafts.sudoku.view.action_listeners.ResetActionListener;
 import com.farrellcrafts.sudoku.view.action_listeners.SolveActionListener;
 
 public class SudokuFrame extends JFrame implements Runnable{
-	private MenuPane gameMenu;
-	private MenuPane entryMenu;
-	JPanel gamePanel;
-	JPanel menuPanel;
-	JPanel entryPanel;
-	
-	SudokuFrame(){
-		
-		gamePanel = new SudokuBoard();
-		this.add(menuPanel);
+
+	private static final long serialVersionUID = -1266589437727628251L;
+	private enum Mode{
+		GAME, ENTRY;
+	}
+	private Mode mode;
+	private EntryMenuPane entryMenu;
+	private GameMenuPane gameMenu;
+	private SudokuBoard boardPanel;
+	private IntroScreen intro;
+	public SudokuFrame(ActionListener entryModeListener, ActionListener gameModeListener){
+		intro = new IntroScreen(entryModeListener, gameModeListener);
+		gameMenu = new GameMenuPane();
+		entryMenu = new EntryMenuPane();
 		buildAndSetVisible();
 	}
 	
@@ -39,23 +44,28 @@ public class SudokuFrame extends JFrame implements Runnable{
 		} catch (UnsupportedLookAndFeelException ex) {
 		}
 
-		JFrame frame = new JFrame();
+		JFrame frame = this;
+		frame.setTitle("Sudoku");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
-		frame.add(this);
-		frame.add(menuPanel, BorderLayout.AFTER_LINE_ENDS);
+		frame.getContentPane().add(intro);
+		
 		frame.pack();
 		frame.setVisible(true);
 	}
 	
-	public void setListenersOnMenu(HintActionListener hint,
+	public void setListenersOnGameMenu(HintActionListener hint,
 			NewActionListener newAction,
 			ResetActionListener reset,
 			SolveActionListener solve){
-		menuPanel.addListener(hint);
-		menuPanel.addListener(newAction);
-		menuPanel.addListener(reset);
-		menuPanel.addListener(solve);
+		gameMenu.addListener(hint);
+		gameMenu.addListener(newAction);
+		gameMenu.addListener(reset);
+		gameMenu.addListener(solve);
+	}
+	
+	public void setListenersOnEntryMenu(){
+		
 	}
 	
 	private void buildAndSetVisible(){
@@ -63,7 +73,47 @@ public class SudokuFrame extends JFrame implements Runnable{
 	}
 	
 	public Difficulty getDifficulty(){
-		return menu.getDifficulty();
-	}s
+		return gameMenu.getDifficulty();
+	}
+	
+	private SudokuBoard getBoard(String[][] initialValues){
+		boardPanel = new SudokuBoard(initialValues);
+		return boardPanel;
+	}
+	
+	public void setGameModeVisible(){
+		mode = Mode.GAME;
+		getContentPane().removeAll();
+		getContentPane().add(boardPanel);
+		getContentPane().add(gameMenu, BorderLayout.AFTER_LINE_ENDS);
+		pack();
+		setVisible(true);
+	}
+	
+	public void setEntryModeVisible(){
+		mode = Mode.ENTRY;
+		String[][] values = new String[9][9];
+		setBoardValues(values);
+		getContentPane().removeAll();
+		getContentPane().add(boardPanel);
+		getContentPane().add(entryMenu, BorderLayout.AFTER_LINE_ENDS);
+		pack();
+		setVisible(true);
+	}
+
+	public void setBoardValues(String[][] newBoard) {
+		if(boardPanel != null){
+			boardPanel.setBoardValues(newBoard);
+		}else{
+			getBoard(newBoard);
+		}
+	}
+
+
+	public void setCellValue(int row, int column, String value) {
+		if(boardPanel != null && mode == Mode.GAME){
+			boardPanel.setCellValue(row, column, value);
+		}
+	}
 	
 }

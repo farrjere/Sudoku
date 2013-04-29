@@ -7,26 +7,28 @@ import com.farrellcrafts.sudoku.controller.Sudoku;
 import com.farrellcrafts.sudoku.model.SudokuPuzzle;
 import com.farrellcrafts.sudoku.model.SudokuPuzzleLoader;
 import com.farrellcrafts.sudoku.view.SudokuBoard;
+import com.farrellcrafts.sudoku.view.SudokuFrame;
 
 public class NewActionListener implements ActionListener {
 	private SudokuPuzzleLoader loader;
-	private SudokuBoard board;
+	private SudokuFrame frame;
 	private SudokuPuzzle puzzle;
 	
-	public NewActionListener(SudokuPuzzleLoader puzzleLoader, 
-			SudokuBoard board, 
+	public NewActionListener(
+			SudokuPuzzleLoader puzzleLoader, 
+			SudokuFrame frame, 
 			SudokuPuzzle puzzle){
 		this.loader = puzzleLoader;
 		this.puzzle = puzzle;
-		this.board = board;
+		this.frame = frame;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		puzzle = loader.getNextPuzzle(board.getDifficulty());
+		puzzle = loader.getNextPuzzle(frame.getDifficulty());
 		if(puzzle != null){
 			String[][] newBoard = puzzle.getCurrentBoard();
-			board.setBoardValues(newBoard);
+			frame.setBoardValues(newBoard);
 			Sudoku.updatePuzzle();
 		}
 	}

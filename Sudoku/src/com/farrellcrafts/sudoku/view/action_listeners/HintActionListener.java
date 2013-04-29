@@ -5,13 +5,13 @@ import java.awt.event.ActionListener;
 
 import com.farrellcrafts.sudoku.model.Hint;
 import com.farrellcrafts.sudoku.model.SudokuPuzzle;
-import com.farrellcrafts.sudoku.view.SudokuBoard;
+import com.farrellcrafts.sudoku.view.SudokuFrame;
 
 public class HintActionListener implements ActionListener {
-	private SudokuBoard board;
+	private SudokuFrame frame;
 	private SudokuPuzzle puzzle;
-	public HintActionListener(SudokuBoard board, SudokuPuzzle puzzle){
-		this.board = board;
+	public HintActionListener(SudokuFrame frame, SudokuPuzzle puzzle){
+		this.frame = frame;
 		this.puzzle = puzzle;
 	}
 	
@@ -25,7 +25,7 @@ public class HintActionListener implements ActionListener {
 		if(hint == null){
 			System.out.println("This puzzle has been solved, there are no more hints to give");
 		}else{
-			board.setCellValue(hint.getRow(), hint.getColumn(), hint.getValue());
+			frame.setCellValue(hint.getRow(), hint.getColumn(), hint.getValue());
 		}
 	}
 
