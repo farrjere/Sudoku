@@ -1,12 +1,11 @@
-package com.farrellcrafts.sudoku.view.action_listeners;
+package com.farrellcrafts.sudoku.view.listeners.game;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import com.farrellcrafts.sudoku.controller.Sudoku;
+import com.farrellcrafts.sudoku.controller.SudokuGame;
 import com.farrellcrafts.sudoku.model.SudokuPuzzle;
 import com.farrellcrafts.sudoku.model.SudokuPuzzleLoader;
-import com.farrellcrafts.sudoku.view.SudokuBoard;
 import com.farrellcrafts.sudoku.view.SudokuFrame;
 
 public class NewActionListener implements ActionListener {
@@ -27,9 +26,9 @@ public class NewActionListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		puzzle = loader.getNextPuzzle(frame.getDifficulty());
 		if(puzzle != null){
-			String[][] newBoard = puzzle.getCurrentBoard();
+			String[][] newBoard = puzzle.getCurrentBoardAsString();
 			frame.setBoardValues(newBoard);
-			Sudoku.updatePuzzle();
+			SudokuGame.updatePuzzle();
 		}
 	}
 

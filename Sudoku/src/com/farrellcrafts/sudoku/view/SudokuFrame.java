@@ -3,36 +3,39 @@ package com.farrellcrafts.sudoku.view;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import com.farrellcrafts.sudoku.model.Difficulty;
-import com.farrellcrafts.sudoku.view.action_listeners.GameModeListener;
-import com.farrellcrafts.sudoku.view.action_listeners.HintActionListener;
-import com.farrellcrafts.sudoku.view.action_listeners.NewActionListener;
-import com.farrellcrafts.sudoku.view.action_listeners.ResetActionListener;
-import com.farrellcrafts.sudoku.view.action_listeners.SolveActionListener;
+import com.farrellcrafts.sudoku.view.listeners.entry.SaveActionListener;
+import com.farrellcrafts.sudoku.view.listeners.game.HintActionListener;
+import com.farrellcrafts.sudoku.view.listeners.game.NewActionListener;
+import com.farrellcrafts.sudoku.view.listeners.game.ResetActionListener;
+import com.farrellcrafts.sudoku.view.listeners.game.SolveActionListener;
 
 public class SudokuFrame extends JFrame implements Runnable{
 
 	private static final long serialVersionUID = -1266589437727628251L;
+	private static final String TITLE = "Sudoku";
 	private enum Mode{
 		GAME, ENTRY;
 	}
+	
 	private Mode mode;
 	private EntryMenuPane entryMenu;
 	private GameMenuPane gameMenu;
 	private SudokuBoard boardPanel;
 	private IntroScreen intro;
+	
 	public SudokuFrame(ActionListener entryModeListener, ActionListener gameModeListener){
 		intro = new IntroScreen(entryModeListener, gameModeListener);
 		gameMenu = new GameMenuPane();
 		entryMenu = new EntryMenuPane();
 		buildAndSetVisible();
 	}
-	
 	
 	@Override
 	public void run() {
@@ -45,7 +48,7 @@ public class SudokuFrame extends JFrame implements Runnable{
 		}
 
 		JFrame frame = this;
-		frame.setTitle("Sudoku");
+		frame.setTitle(TITLE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		frame.getContentPane().add(intro);
@@ -64,8 +67,13 @@ public class SudokuFrame extends JFrame implements Runnable{
 		gameMenu.addListener(solve);
 	}
 	
-	public void setListenersOnEntryMenu(){
-		
+	public void setListenersOnEntryMenu(
+			com.farrellcrafts.sudoku.view.listeners.entry.ResetActionListener reset,
+			SaveActionListener save,
+			com.farrellcrafts.sudoku.view.listeners.entry.SolveActionListener solve){
+		entryMenu.addListenerToReset(reset);
+		entryMenu.addListenerToSave(save);
+		entryMenu.addListenerToSolve(solve);
 	}
 	
 	private void buildAndSetVisible(){
@@ -109,11 +117,26 @@ public class SudokuFrame extends JFrame implements Runnable{
 		}
 	}
 
-
 	public void setCellValue(int row, int column, String value) {
 		if(boardPanel != null && mode == Mode.GAME){
 			boardPanel.setCellValue(row, column, value);
 		}
 	}
-	
+
+	public int[][] getBoardValues() {
+		return boardPanel.getBoardValues();
+	}
+
+	public void setSolutions(List<int[][]> solutions) throws IllegalAccessException {
+		if(mode != Mode.ENTRY){
+			throw new IllegalAccessException();
+		}
+		if(solutions.size() == 0){
+			//Display no solutions message?
+		}else if(solutions.size() == 1){
+			//Display solution
+		}else{
+			//Display 1st solution and buttons that allow you to go back and forth through the solutions
+		}
+	}
 }

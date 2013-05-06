@@ -19,8 +19,6 @@ final public class Hint {
 		}else{
 			throw new IllegalArgumentException("row and col must be greater than -1 and value must be greater than 0");
 		}
-		
-		
 	}
 	
 	public int getRow(){

@@ -84,13 +84,13 @@ public class SudokuPuzzleTest {
 	
 	@Test
 	public void validHint(){
-		String[][] values = puzzle.getCurrentBoard();
-		String[][] smallValues = smallPuzzle.getCurrentBoard();
+		String[][] values = puzzle.getCurrentBoardAsString();
+		String[][] smallValues = smallPuzzle.getCurrentBoardAsString();
 		Hint hint = puzzle.getHint();
 		Hint smallHint = smallPuzzle.getHint();
 		//Not set before hint
-		assertEquals(" ", values[hint.getRow()][hint.getColumn()]);
-		assertEquals(" ", smallValues[smallHint.getRow()][smallHint.getColumn()]);
+		assertEquals("", values[hint.getRow()][hint.getColumn()]);
+		assertEquals("", smallValues[smallHint.getRow()][smallHint.getColumn()]);
 		//Set after hint and equal to hint value
 		assertEquals(hint.getValue(), puzzle.getCellValue(hint.getRow(), hint.getColumn()));
 		assertEquals(smallHint.getValue(), smallPuzzle.getCellValue(smallHint.getRow(), smallHint.getColumn()));

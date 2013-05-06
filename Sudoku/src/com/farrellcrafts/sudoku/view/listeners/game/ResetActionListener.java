@@ -1,4 +1,4 @@
-package com.farrellcrafts.sudoku.view.action_listeners;
+package com.farrellcrafts.sudoku.view.listeners.game;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

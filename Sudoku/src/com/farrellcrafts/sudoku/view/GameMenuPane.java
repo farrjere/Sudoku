@@ -1,10 +1,11 @@
 package com.farrellcrafts.sudoku.view;
 
 import com.farrellcrafts.sudoku.model.Difficulty;
-import com.farrellcrafts.sudoku.view.action_listeners.HintActionListener;
-import com.farrellcrafts.sudoku.view.action_listeners.NewActionListener;
-import com.farrellcrafts.sudoku.view.action_listeners.ResetActionListener;
-import com.farrellcrafts.sudoku.view.action_listeners.SolveActionListener;
+import com.farrellcrafts.sudoku.view.listeners.game.HintActionListener;
+import com.farrellcrafts.sudoku.view.listeners.game.NewActionListener;
+import com.farrellcrafts.sudoku.view.listeners.game.ResetActionListener;
+import com.farrellcrafts.sudoku.view.listeners.game.SolveActionListener;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.Enumeration;

@@ -31,6 +31,16 @@ final public class SudokuPuzzle {
 		return difficulty;
 	}
 	
+	public Hint getHint(int row, int col) {
+		Cell cell = currentGrid[row][col];
+		if(cell.getValue() == 0){
+			int value = solutionGrid[row][col].getValue();
+			cell.setValue(value);
+			return new Hint(row, col, String.valueOf(value));
+		}
+		return null;
+	}
+	
 	public Hint getHint(){
 		Hint hint = null;
 		for(int row = 0; row < size; row++){
@@ -42,9 +52,6 @@ final public class SudokuPuzzle {
 					return new Hint(row, col, String.valueOf(value));
 				}
 			}
-		}
-		if(hint == null){
-			
 		}
 		return hint;
 	}
@@ -84,7 +91,7 @@ final public class SudokuPuzzle {
 	 * to its original state
 	 * @return the values of the solution
 	 */
-	public String[][] getSolution(){
+	public String[][] getSolutionAsString(){
 		String[][] values = new String[size][size];
 		for(int row = 0; row < size; row++){
 			for(int col = 0; col < size; col++){
@@ -98,6 +105,21 @@ final public class SudokuPuzzle {
 		}
 		return values;
 	}
+	
+	public int[][] getSolution(){
+		int[][] values = new int[size][size];
+		for(int row = 0; row < size; row++){
+			for(int col = 0; col < size; col++){
+				Cell cell = solutionGrid[row][col];
+				values[row][col] = cell.getValue();
+				
+				Cell currentCell = currentGrid[row][col];
+				currentCell.clearValue();
+			}
+		}
+		return values;
+	}
+	
 	
 	public boolean getUserSolved(){
 		return userSolved;
@@ -121,7 +143,7 @@ final public class SudokuPuzzle {
 		return true;
 	}
 	
-	public String[][] getCurrentBoard(){
+	public String[][] getCurrentBoardAsString(){
 		String[][] values = new String[size][size];
 		for(int row = 0; row < size; row++){
 			for(int col = 0; col < size; col++){
@@ -132,6 +154,17 @@ final public class SudokuPuzzle {
 				}else{
 					values[row][col] = String.valueOf(val);
 				}
+			}
+		}
+		return values;
+	}
+	
+	public int[][] getCurrentBoard(){
+		int[][] values = new int[size][size];
+		for(int row = 0; row < size; row++){
+			for(int col = 0; col < size; col++){
+				Cell cell = currentGrid[row][col];
+				values[row][col] = cell.getValue();
 			}
 		}
 		return values;
@@ -218,4 +251,5 @@ final public class SudokuPuzzle {
 			}
 		}
 	}
+
 }

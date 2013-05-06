@@ -1,4 +1,4 @@
-package com.farrellcrafts.sudoku.view.action_listeners;
+package com.farrellcrafts.sudoku.view.listeners.game;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,7 +23,7 @@ public class SolveActionListener implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String[][] solution = puzzle.getSolution();
+		String[][] solution = puzzle.getSolutionAsString();
 		frame.setBoardValues(solution);
 	}
 

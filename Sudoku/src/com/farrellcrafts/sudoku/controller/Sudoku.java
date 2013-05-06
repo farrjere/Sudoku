@@ -1,46 +1,29 @@
 package com.farrellcrafts.sudoku.controller;
 
-import com.farrellcrafts.sudoku.model.Difficulty;
-import com.farrellcrafts.sudoku.model.SudokuPuzzle;
-import com.farrellcrafts.sudoku.model.SudokuPuzzleLoader;
-import com.farrellcrafts.sudoku.view.SudokuBoard;
 import com.farrellcrafts.sudoku.view.SudokuFrame;
-import com.farrellcrafts.sudoku.view.action_listeners.*;
+import com.farrellcrafts.sudoku.view.listeners.EntryModeListener;
+import com.farrellcrafts.sudoku.view.listeners.GameModeListener;
 
 public class Sudoku {
 	private static Sudoku sudoku;
 	
 	private SudokuFrame sFrame;
-	private SudokuBoard board;
-	
-	private SudokuPuzzleLoader loader;
-	
-	private SudokuPuzzle currentPuzzle;
-	
+	private SudokuGame game;
+	private SudokuEntry entry;
 	//Intro Screen listeners
 	private EntryModeListener entryModeListener;
 	private GameModeListener gameModeListener;
-	
-	//Game mode listeners
-	private NewActionListener newListener;
-	private ResetActionListener resetListener;
-	private HintActionListener hintListener;
-	private SolveActionListener solveListener;
 	
 	public static void main(String[] args) {
 		new Sudoku();
 	}
 	
-	public static void updatePuzzle(){
-		sudoku.updateCurrentPuzzle();
-	}
-	
 	public static void setGameMode(){
-		sudoku.initializeGameMode();
+		sudoku.setupGame();
 	}
 	
 	public static void setEntryMode(){
-		sudoku.initializeEntryMode();
+		sudoku.setupEntry();
 	}
 	
 	private Sudoku() {
@@ -54,28 +37,12 @@ public class Sudoku {
 		sFrame = new SudokuFrame(entryModeListener, gameModeListener);
 	}
 	
-	private void initializeGameMode(){
-		loader = new SudokuPuzzleLoader();
-		currentPuzzle = loader.getNextPuzzle(Difficulty.EASY);
-		sFrame.setBoardValues(currentPuzzle.getCurrentBoard());
-		hintListener = new HintActionListener(sFrame, currentPuzzle);
-		newListener = new NewActionListener(loader, sFrame, currentPuzzle);
-		resetListener = new ResetActionListener(sFrame, currentPuzzle);
-		solveListener = new SolveActionListener(sFrame, currentPuzzle);
-		sFrame.setListenersOnGameMenu(hintListener, newListener, resetListener, solveListener);
-		sFrame.setGameModeVisible();
-	}
-	
-	private void initializeEntryMode(){
+	private void setupEntry(){
 		sFrame.setEntryModeVisible();
 	}
 	
-	private void updateCurrentPuzzle(){
-		currentPuzzle = loader.getCurrentPuzzle();
-		hintListener.updateSudokuPuzzle(currentPuzzle);
-		resetListener.updateSudokuPuzzle(currentPuzzle);
-		solveListener.updateSudokuPuzzle(currentPuzzle);
+	private void setupGame(){
+		game = new SudokuGame(sFrame);
 	}
-	
 
 }

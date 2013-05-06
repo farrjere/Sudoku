@@ -26,12 +26,12 @@ public class EntryMenuPane extends MenuPanel {
 		addComponents(new AbstractButton[]{resetButton, solveButton, saveButton});
 	}
 	
-	public void addListenerToSolve(ActionListener listener){
-		solveButton.addActionListener(listener);
-	}
-	
 	public void addListenerToReset(ActionListener listener){
 		resetButton.addActionListener(listener);
+	}
+	
+	public void addListenerToSolve(ActionListener listener){
+		solveButton.addActionListener(listener);
 	}
 	
 	public void addListenerToSave(ActionListener listener){

@@ -14,20 +14,21 @@ import com.farrellcrafts.sudoku.model.Difficulty;
 public class SudokuBoard extends JPanel  {
 
 	private static final long serialVersionUID = 3242846960946212517L;
-	public static final int ROWS = 3;
-	public static final int COLUMNS = 3;
+	public final int rows;
+	public final int columns;
 	public static final int SIZE = 400;
 	private ChildBoard[][] subBoards;
 	
 	public SudokuBoard(String[][] initialValues){
+		rows = columns = (int)Math.sqrt(initialValues.length);
 		setupBoard(initialValues);
 	}
 
 	private void setupBoard(String[][] initialValues){
 		setPreferredSize(new Dimension(SIZE, SIZE));
 		setBorder(new EmptyBorder(4, 4, 4, 4));
-		subBoards = new ChildBoard[ROWS][COLUMNS];
-		setLayout(new GridLayout(ROWS, COLUMNS, 2, 2));
+		subBoards = new ChildBoard[rows][columns];
+		setLayout(new GridLayout(rows, columns, 2, 2));
 		initializeChildBoards();
 		setBoardValues(initialValues);
 	}
@@ -51,9 +52,9 @@ public class SudokuBoard extends JPanel  {
 	}
 	
 	private void initializeChildBoards(){
-		for (int row = 0; row < ROWS; row++) {
-			for (int col = 0; col < COLUMNS; col++) {
-				ChildBoard board = new ChildBoard(ROWS, COLUMNS);
+		for (int row = 0; row < rows; row++) {
+			for (int col = 0; col < columns; col++) {
+				ChildBoard board = new ChildBoard(rows, columns, row, col);
 				board.setBorder(new CompoundBorder(new LineBorder(Color.GRAY, 3), new EmptyBorder(4, 4, 4, 4)));
 				subBoards[row][col] = board;
 				add(board);
@@ -62,10 +63,10 @@ public class SudokuBoard extends JPanel  {
 	}
 
 	private void setCellValue(int row, int column, String value, boolean editable) {
-		int boardRow = row / ROWS;
-		int boardCol = column / COLUMNS;
-		int subRow = row % ROWS;
-		int subCol = column % COLUMNS;
+		int boardRow = row / rows;
+		int boardCol = column / columns;
+		int subRow = row % rows;
+		int subCol = column % columns;
 		setCellValue(boardRow, boardCol, subRow, subCol, value, editable);
 	} 
 	
@@ -77,5 +78,24 @@ public class SudokuBoard extends JPanel  {
 			boolean editable){
 		
 		subBoards[boardRow][boardCol].setCellValue(subRow, subCol, value, editable);
+	}
+	
+	/**
+	 * Returns the currently set board values as a 2d int array
+	 * @return
+	 */
+	public int[][] getBoardValues(){
+		int[][] values = new int[rows][columns];
+		for(int boardRow = 0; boardRow < rows; boardRow++){
+			for(int boardCol = 0; boardCol < columns; boardCol++){
+				ChildBoard subBoard = subBoards[boardRow][boardCol];
+				for(int i = 0; i < rows; i++){
+					for(int j = 0; j < columns; j++){
+						values[i+rows*boardRow][j+columns*boardCol] = subBoard.getCellValue(i, j);
+					}
+				}
+			}
+		}
+		return values;
 	}
 }
