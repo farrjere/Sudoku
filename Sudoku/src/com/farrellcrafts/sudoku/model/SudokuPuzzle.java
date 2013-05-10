@@ -36,7 +36,7 @@ final public class SudokuPuzzle {
 		if(cell.getValue() == 0){
 			int value = solutionGrid[row][col].getValue();
 			cell.setValue(value);
-			return new Hint(row, col, String.valueOf(value));
+			return new Hint(row, col, value);
 		}
 		return null;
 	}
@@ -49,7 +49,7 @@ final public class SudokuPuzzle {
 				if(cell.getValue() == 0){
 					int value = solutionGrid[row][col].getValue();
 					cell.setValue(value);
-					return new Hint(row, col, String.valueOf(value));
+					return new Hint(row, col, value);
 				}
 			}
 		}
@@ -60,18 +60,14 @@ final public class SudokuPuzzle {
 	 * This function resets the SudokuPuzzle to its original state
 	 * @return the SudokuPuzzle as it was created
 	 */
-	public String[][] reset(){
-		String[][] values = new String[size][size];
+	public int[][] reset(){
+		int[][] values = new int[size][size];
 		for(int row = 0; row < size; row++){
 			for(int col = 0; col < size; col++){
 				Cell cell = currentGrid[row][col];
 				cell.clearValue();
 				int value = cell.getValue();
-				if(value == 0){
-					values[row][col] = "";
-				}else{
-					values[row][col] = String.valueOf(value);
-				}
+				values[row][col] = value;
 			}
 		}
 		return values;

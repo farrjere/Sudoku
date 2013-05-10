@@ -13,6 +13,7 @@ public class PuzzleSolver{
 	private List<int[][]> solutions;
 	private final int gridSize;
 	private final int size;
+	//TODO use this to stop solving if past time
 	private long timeout;
 	
 	protected PuzzleSolver(int size){
@@ -155,11 +156,8 @@ public class PuzzleSolver{
 	 */
 	protected List<Integer> getFreeValues(int[][] board, int rowInd, int colInd){
 		List<Integer> rowValues = getFreeValues(getRow(board, rowInd));
-		//System.out.println(rowValues.toString());
 		List<Integer> colValues = getFreeValues(getColumn(board, colInd));
-		//System.out.println(colValues.toString());
 		List<Integer> gridValues = getFreeValues(getGrid(board, rowInd, colInd));
-		//System.out.println(gridValues.toString());
 		List<List<Integer>> listOfFreeValues = new ArrayList<List<Integer>>();
 		listOfFreeValues.add(rowValues);
 		listOfFreeValues.add(colValues);

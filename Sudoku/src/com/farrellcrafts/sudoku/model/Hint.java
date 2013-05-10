@@ -3,7 +3,7 @@ package com.farrellcrafts.sudoku.model;
 final public class Hint {
 	private final int row;
 	private final int col;
-	private final String value;
+	private final int value;
 	
 	/**
 	 * This class acts as a dto between the SudokuPuzzle model and the view
@@ -11,7 +11,7 @@ final public class Hint {
 	 * @param col - the col of the value
 	 * @param value - the value for the cell
 	 */
-	public Hint(int row, int col, String value) {
+	public Hint(int row, int col, int value) {
 		if(row > -1 && col > -1 && Integer.valueOf(value) > 0){
 			this.row = row;
 			this.col = col;
@@ -29,7 +29,7 @@ final public class Hint {
 		return col;
 	}
 	
-	public String getValue(){
+	public int getValue(){
 		return value;
 	}
 

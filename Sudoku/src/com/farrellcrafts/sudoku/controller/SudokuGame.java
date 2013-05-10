@@ -32,7 +32,7 @@ public class SudokuGame {
 	private void initializeGameMode(){
 		loader = new SudokuPuzzleLoader();
 		currentPuzzle = loader.getNextPuzzle(Difficulty.EASY);
-		sFrame.setBoardValues(currentPuzzle.getCurrentBoardAsString());
+		sFrame.setBoardValues(currentPuzzle.getCurrentBoard());
 		hintListener = new HintActionListener(sFrame, currentPuzzle);
 		newListener = new NewActionListener(loader, sFrame, currentPuzzle);
 		resetListener = new ResetActionListener(sFrame, currentPuzzle);

@@ -14,9 +14,11 @@ public class ChildBoard extends JPanel {
 
 	private static final long serialVersionUID = -1807083097488271435L;
 	private final JTextField[][] fields;
+	private SudokuBoard board;
 	
 
-	public ChildBoard(int rows, int cols, int boardRow, int boardCol) {
+	public ChildBoard(SudokuBoard board, int rows, int cols, int boardRow, int boardCol) {
+		this.board = board;
 		setBorder(new LineBorder(Color.LIGHT_GRAY));
 		setLayout(new GridLayout(rows, cols, 2, 2));
 		fields = new JTextField[rows][cols];
@@ -29,13 +31,14 @@ public class ChildBoard extends JPanel {
 		}
 	}
 	
-	public void setCellValue(int row, int col, String value, boolean editable){
+	public void setCellValue(int row, int col, int value, boolean editable){
+		String val = board.valueInRange(value) ? String.valueOf(value) : "";
 		JTextField field = fields[row][col];
 		//first clear the cell of its original contents
 		field.setText("");
 		field.setEditable(editable);
 		field.setFocusable(editable);
-		field.setText(value);
+		field.setText(val);
 	}
 
 	public int getCellValue(int i, int j) {

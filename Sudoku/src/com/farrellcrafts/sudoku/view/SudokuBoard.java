@@ -19,12 +19,12 @@ public class SudokuBoard extends JPanel  {
 	public static final int SIZE = 400;
 	private ChildBoard[][] subBoards;
 	
-	public SudokuBoard(String[][] initialValues){
+	public SudokuBoard(int[][] initialValues){
 		rows = columns = (int)Math.sqrt(initialValues.length);
 		setupBoard(initialValues);
 	}
 
-	private void setupBoard(String[][] initialValues){
+	private void setupBoard(int[][] initialValues){
 		setPreferredSize(new Dimension(SIZE, SIZE));
 		setBorder(new EmptyBorder(4, 4, 4, 4));
 		subBoards = new ChildBoard[rows][columns];
@@ -33,16 +33,16 @@ public class SudokuBoard extends JPanel  {
 		setBoardValues(initialValues);
 	}
 	
-	public void setCellValue(int row, int col, String value){
+	public void setCellValue(int row, int col, int value){
 		setCellValue(row, col, value, true);
 	}
 	
-	public void setBoardValues(String[][] values){
+	public void setBoardValues(int[][] values){
 		int size = values.length;
 		for(int row = 0; row < size; row++){
 			for(int col = 0; col < size; col++){
-				String value = values[row][col];
-				if(value == "" || value == null){
+				int value = values[row][col];
+				if(!valueInRange(value)){
 					setCellValue(row, col, value, true);
 				}else{
 					setCellValue(row, col, value, false);
@@ -51,10 +51,14 @@ public class SudokuBoard extends JPanel  {
 		}
 	}
 	
+	protected boolean valueInRange(int value) {
+		return value > 0 && value <= rows * rows;
+	}
+
 	private void initializeChildBoards(){
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < columns; col++) {
-				ChildBoard board = new ChildBoard(rows, columns, row, col);
+				ChildBoard board = new ChildBoard(this, rows, columns, row, col);
 				board.setBorder(new CompoundBorder(new LineBorder(Color.GRAY, 3), new EmptyBorder(4, 4, 4, 4)));
 				subBoards[row][col] = board;
 				add(board);
@@ -62,7 +66,7 @@ public class SudokuBoard extends JPanel  {
 		}
 	}
 
-	private void setCellValue(int row, int column, String value, boolean editable) {
+	private void setCellValue(int row, int column, int value, boolean editable) {
 		int boardRow = row / rows;
 		int boardCol = column / columns;
 		int subRow = row % rows;
@@ -74,7 +78,7 @@ public class SudokuBoard extends JPanel  {
 			int boardCol, 
 			int subRow, 
 			int subCol, 
-			String value,
+			int value,
 			boolean editable){
 		
 		subBoards[boardRow][boardCol].setCellValue(subRow, subCol, value, editable);
@@ -85,7 +89,7 @@ public class SudokuBoard extends JPanel  {
 	 * @return
 	 */
 	public int[][] getBoardValues(){
-		int[][] values = new int[rows][columns];
+		int[][] values = new int[rows*rows][columns*columns];
 		for(int boardRow = 0; boardRow < rows; boardRow++){
 			for(int boardCol = 0; boardCol < columns; boardCol++){
 				ChildBoard subBoard = subBoards[boardRow][boardCol];

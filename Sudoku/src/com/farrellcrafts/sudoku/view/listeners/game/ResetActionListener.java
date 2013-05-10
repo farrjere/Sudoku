@@ -24,7 +24,7 @@ public class ResetActionListener implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String[][] resetValues = puzzle.reset();
+		int[][] resetValues = puzzle.reset();
 		frame.setBoardValues(resetValues);
 	}
 

@@ -23,7 +23,7 @@ public class SolveActionListener implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String[][] solution = puzzle.getSolutionAsString();
+		int[][] solution = puzzle.getSolution();
 		frame.setBoardValues(solution);
 	}
 

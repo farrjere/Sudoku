@@ -1,11 +1,13 @@
 package com.farrellcrafts.sudoku.view;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -20,15 +22,17 @@ public class SudokuFrame extends JFrame implements Runnable{
 
 	private static final long serialVersionUID = -1266589437727628251L;
 	private static final String TITLE = "Sudoku";
+	private static final Component NO_SOLUTIONS = new JLabel("There were no solutions for the given puzzle");
 	private enum Mode{
 		GAME, ENTRY;
 	}
-	
+	private int solutionIndex = -1;
 	private Mode mode;
 	private EntryMenuPane entryMenu;
 	private GameMenuPane gameMenu;
 	private SudokuBoard boardPanel;
 	private IntroScreen intro;
+	private List<int[][]> solutions;
 	
 	public SudokuFrame(ActionListener entryModeListener, ActionListener gameModeListener){
 		intro = new IntroScreen(entryModeListener, gameModeListener);
@@ -84,7 +88,8 @@ public class SudokuFrame extends JFrame implements Runnable{
 		return gameMenu.getDifficulty();
 	}
 	
-	private SudokuBoard getBoard(String[][] initialValues){
+	private SudokuBoard getBoard(int[][] initialValues){
+		System.out.println(initialValues.length);
 		boardPanel = new SudokuBoard(initialValues);
 		return boardPanel;
 	}
@@ -100,7 +105,7 @@ public class SudokuFrame extends JFrame implements Runnable{
 	
 	public void setEntryModeVisible(){
 		mode = Mode.ENTRY;
-		String[][] values = new String[9][9];
+		int[][] values = new int[9][9];
 		setBoardValues(values);
 		getContentPane().removeAll();
 		getContentPane().add(boardPanel);
@@ -109,7 +114,7 @@ public class SudokuFrame extends JFrame implements Runnable{
 		setVisible(true);
 	}
 
-	public void setBoardValues(String[][] newBoard) {
+	public void setBoardValues(int[][] newBoard) {
 		if(boardPanel != null){
 			boardPanel.setBoardValues(newBoard);
 		}else{
@@ -117,7 +122,7 @@ public class SudokuFrame extends JFrame implements Runnable{
 		}
 	}
 
-	public void setCellValue(int row, int column, String value) {
+	public void setCellValue(int row, int column, int value) {
 		if(boardPanel != null && mode == Mode.GAME){
 			boardPanel.setCellValue(row, column, value);
 		}
@@ -128,15 +133,44 @@ public class SudokuFrame extends JFrame implements Runnable{
 	}
 
 	public void setSolutions(List<int[][]> solutions) throws IllegalAccessException {
+		this.solutions= solutions;  
+		remove(NO_SOLUTIONS);
 		if(mode != Mode.ENTRY){
 			throw new IllegalAccessException();
 		}
 		if(solutions.size() == 0){
-			//Display no solutions message?
+			showNoSolutionsMessage();
 		}else if(solutions.size() == 1){
-			//Display solution
+			boardPanel.setBoardValues(solutions.get(0));
 		}else{
-			//Display 1st solution and buttons that allow you to go back and forth through the solutions
+			setSolutionIndex(0);
+			boardPanel.setBoardValues(solutions.get(0));
 		}
+	}
+
+	private void setSolutionIndex(int index) {
+		solutionIndex = index;
+	}
+
+	private void showNoSolutionsMessage() {
+		this.add(NO_SOLUTIONS);
+	}
+	
+	private int getNextSolutionIndex(){
+		if(solutionIndex == solutions.size() -1){
+			solutionIndex = 0;
+		}else{
+			solutionIndex++;
+		}
+		return solutionIndex;
+	}
+	
+	private int getPrevSolutionIndex(){
+		if(solutionIndex == 0){
+			solutionIndex = solutions.size()-1;
+		}else{
+			solutionIndex--;
+		}
+		return solutionIndex;
 	}
 }

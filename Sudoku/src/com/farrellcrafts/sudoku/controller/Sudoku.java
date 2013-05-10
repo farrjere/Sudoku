@@ -38,7 +38,7 @@ public class Sudoku {
 	}
 	
 	private void setupEntry(){
-		sFrame.setEntryModeVisible();
+		entry = new SudokuEntry(sFrame);
 	}
 	
 	private void setupGame(){

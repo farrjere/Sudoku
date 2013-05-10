@@ -26,7 +26,7 @@ public class NewActionListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		puzzle = loader.getNextPuzzle(frame.getDifficulty());
 		if(puzzle != null){
-			String[][] newBoard = puzzle.getCurrentBoardAsString();
+			int[][] newBoard = puzzle.getCurrentBoard();
 			frame.setBoardValues(newBoard);
 			SudokuGame.updatePuzzle();
 		}
