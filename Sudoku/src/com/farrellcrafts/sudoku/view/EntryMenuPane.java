@@ -12,6 +12,8 @@ public class EntryMenuPane extends MenuPanel {
 	private JButton solveButton;
 	private JButton saveButton;
 	private JButton resetButton;
+	private JButton nextButton;
+	private JButton prevButton;
 	
 	public EntryMenuPane() {
 		super(new EmptyBorder(4, 4, 4, 4), GridBagConstraints.HORIZONTAL);
@@ -22,8 +24,19 @@ public class EntryMenuPane extends MenuPanel {
 	    resetButton = new JButton("Reset");
 	    solveButton = new JButton("Solve");
 		saveButton = new JButton("Save");
+		
+		nextButton = new JButton("Next");
+		prevButton = new JButton("Previous");
+		
+		nextButton.setVisible(false);
+		prevButton.setVisible(false);
 	    //Add all buttons to out JPanel 
-		addComponents(new AbstractButton[]{resetButton, solveButton, saveButton});
+		addComponents(new AbstractButton[]{resetButton, solveButton, saveButton, nextButton, prevButton});
+	}
+	
+	public void setMultipleSolutionButtonsVisibility(boolean visible){
+		prevButton.setVisible(visible);
+		nextButton.setVisible(visible);
 	}
 	
 	public void addListenerToReset(ActionListener listener){
@@ -36,6 +49,14 @@ public class EntryMenuPane extends MenuPanel {
 	
 	public void addListenerToSave(ActionListener listener){
 		saveButton.addActionListener(listener);
+	}
+	
+	public void addListenerToNext(ActionListener listener){
+		prevButton.addActionListener(listener);
+	}
+	
+	public void addListenerToPrev(ActionListener listener){
+		prevButton.addActionListener(listener);
 	}
 	
 }

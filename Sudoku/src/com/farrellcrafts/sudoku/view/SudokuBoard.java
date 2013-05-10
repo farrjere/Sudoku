@@ -11,9 +11,12 @@ import javax.swing.border.LineBorder;
 
 import com.farrellcrafts.sudoku.model.Difficulty;
 
+/**
+ * This is the main sudoku board which controls all sub-boards (more properly grids)
+ * @author Jeremy Farrell farrjere@isu.edu
+ */
 public class SudokuBoard extends JPanel  {
 
-	private static final long serialVersionUID = 3242846960946212517L;
 	public final int rows;
 	public final int columns;
 	public static final int SIZE = 400;

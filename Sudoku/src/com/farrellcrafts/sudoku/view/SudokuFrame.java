@@ -12,6 +12,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import com.farrellcrafts.sudoku.model.Difficulty;
+import com.farrellcrafts.sudoku.view.listeners.NextListener;
+import com.farrellcrafts.sudoku.view.listeners.PrevListener;
 import com.farrellcrafts.sudoku.view.listeners.entry.SaveActionListener;
 import com.farrellcrafts.sudoku.view.listeners.game.HintActionListener;
 import com.farrellcrafts.sudoku.view.listeners.game.NewActionListener;
@@ -20,12 +22,12 @@ import com.farrellcrafts.sudoku.view.listeners.game.SolveActionListener;
 
 public class SudokuFrame extends JFrame implements Runnable{
 
-	private static final long serialVersionUID = -1266589437727628251L;
 	private static final String TITLE = "Sudoku";
 	private static final Component NO_SOLUTIONS = new JLabel("There were no solutions for the given puzzle");
 	private enum Mode{
 		GAME, ENTRY;
 	}
+	
 	private int solutionIndex = -1;
 	private Mode mode;
 	private EntryMenuPane entryMenu;
@@ -89,7 +91,6 @@ public class SudokuFrame extends JFrame implements Runnable{
 	}
 	
 	private SudokuBoard getBoard(int[][] initialValues){
-		System.out.println(initialValues.length);
 		boardPanel = new SudokuBoard(initialValues);
 		return boardPanel;
 	}
@@ -135,16 +136,40 @@ public class SudokuFrame extends JFrame implements Runnable{
 	public void setSolutions(List<int[][]> solutions) throws IllegalAccessException {
 		this.solutions= solutions;  
 		remove(NO_SOLUTIONS);
+		checkEntryMode();
+		if(solutions.size() == 0){
+			handleNoSolutions();
+		}else if(solutions.size() == 1){
+			handleSolution();
+		}else{
+			handleMultipleSolutions();
+		}
+	}
+	
+	private void handleNoSolutions(){
+		System.out.println("No Solution");
+		showNoSolutionsMessage();
+		entryMenu.setMultipleSolutionButtonsVisibility(false);
+	}
+	
+	private void handleSolution(){
+		System.out.println("One Solution");
+		boardPanel.setBoardValues(solutions.get(0));
+		entryMenu.setMultipleSolutionButtonsVisibility(false);
+	}
+	
+	private void handleMultipleSolutions(){
+		System.out.println("Multiple Solutions");
+		setSolutionIndex(0);
+		boardPanel.setBoardValues(solutions.get(0));
+		entryMenu.setMultipleSolutionButtonsVisibility(true);
+		entryMenu.addListenerToNext(new NextListener(this));
+		entryMenu.addListenerToPrev(new PrevListener(this));
+	}
+	
+	private void checkEntryMode() throws IllegalAccessException{
 		if(mode != Mode.ENTRY){
 			throw new IllegalAccessException();
-		}
-		if(solutions.size() == 0){
-			showNoSolutionsMessage();
-		}else if(solutions.size() == 1){
-			boardPanel.setBoardValues(solutions.get(0));
-		}else{
-			setSolutionIndex(0);
-			boardPanel.setBoardValues(solutions.get(0));
 		}
 	}
 
@@ -154,6 +179,20 @@ public class SudokuFrame extends JFrame implements Runnable{
 
 	private void showNoSolutionsMessage() {
 		this.add(NO_SOLUTIONS);
+	}
+	
+	public void nextSolution(){
+		if(solutions != null && solutions.size() > 1){
+			int[][] solution = solutions.get(getNextSolutionIndex());
+			boardPanel.setBoardValues(solution);
+		}
+	}
+	
+	public void previousSolution(){
+		if(solutions != null && solutions.size() > 1){
+			int[][] solution = solutions.get(getPrevSolutionIndex());
+			boardPanel.setBoardValues(solution);
+		}
 	}
 	
 	private int getNextSolutionIndex(){
