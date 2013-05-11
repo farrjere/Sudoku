@@ -7,7 +7,7 @@ import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
 
-public class EntryMenuPane extends MenuPanel {
+public class EntryMenu extends MenuPanel {
 	private static final long serialVersionUID = 678727189285841459L;
 	private JButton solveButton;
 	private JButton saveButton;
@@ -15,7 +15,7 @@ public class EntryMenuPane extends MenuPanel {
 	private JButton nextButton;
 	private JButton prevButton;
 	
-	public EntryMenuPane() {
+	public EntryMenu() {
 		super(new EmptyBorder(4, 4, 4, 4), GridBagConstraints.HORIZONTAL);
 	}
 	
@@ -52,7 +52,7 @@ public class EntryMenuPane extends MenuPanel {
 	}
 	
 	public void addListenerToNext(ActionListener listener){
-		prevButton.addActionListener(listener);
+		nextButton.addActionListener(listener);
 	}
 	
 	public void addListenerToPrev(ActionListener listener){

@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
-public class GameMenuPane extends MenuPanel {
+public class GameMenu extends MenuPanel {
 	private static final long serialVersionUID = 678727189285841459L;
 	private JButton solveButton;
 	private JButton newButton;
@@ -25,7 +25,7 @@ public class GameMenuPane extends MenuPanel {
 	private JButton resetButton;
 	private ButtonGroup group;
 	
-	public GameMenuPane() {
+	public GameMenu() {
 		super(new EmptyBorder(4, 4, 4, 4), GridBagConstraints.HORIZONTAL);
 	}
 	

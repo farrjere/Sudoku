@@ -30,16 +30,16 @@ public class SudokuFrame extends JFrame implements Runnable{
 	
 	private int solutionIndex = -1;
 	private Mode mode;
-	private EntryMenuPane entryMenu;
-	private GameMenuPane gameMenu;
+	private EntryMenu entryMenu;
+	private GameMenu gameMenu;
 	private SudokuBoard boardPanel;
 	private IntroScreen intro;
 	private List<int[][]> solutions;
 	
 	public SudokuFrame(ActionListener entryModeListener, ActionListener gameModeListener){
 		intro = new IntroScreen(entryModeListener, gameModeListener);
-		gameMenu = new GameMenuPane();
-		entryMenu = new EntryMenuPane();
+		gameMenu = new GameMenu();
+		entryMenu = new EntryMenu();
 		buildAndSetVisible();
 	}
 	
@@ -58,7 +58,6 @@ public class SudokuFrame extends JFrame implements Runnable{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		frame.getContentPane().add(intro);
-		
 		frame.pack();
 		frame.setVisible(true);
 	}
@@ -162,9 +161,9 @@ public class SudokuFrame extends JFrame implements Runnable{
 		System.out.println("Multiple Solutions");
 		setSolutionIndex(0);
 		boardPanel.setBoardValues(solutions.get(0));
-		entryMenu.setMultipleSolutionButtonsVisibility(true);
 		entryMenu.addListenerToNext(new NextListener(this));
 		entryMenu.addListenerToPrev(new PrevListener(this));
+		entryMenu.setMultipleSolutionButtonsVisibility(true);
 	}
 	
 	private void checkEntryMode() throws IllegalAccessException{

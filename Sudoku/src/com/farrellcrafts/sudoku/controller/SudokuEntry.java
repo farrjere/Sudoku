@@ -21,7 +21,7 @@ public class SudokuEntry {
 	}
 	
 	private void initializeEntryMode(){
-		reset = new ResetActionListener();
+		reset = new ResetActionListener(sudokuFrame);
 		save = new SaveActionListener();
 		solve = new SolveActionListener(this, sudokuFrame);
 		sudokuFrame.setListenersOnEntryMenu(reset, save, solve);

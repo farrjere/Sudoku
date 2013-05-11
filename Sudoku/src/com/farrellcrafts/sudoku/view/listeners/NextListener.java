@@ -19,7 +19,7 @@ public class NextListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		frame.previousSolution();
+		frame.nextSolution();
 	}
 
 }

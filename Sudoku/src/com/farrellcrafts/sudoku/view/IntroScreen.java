@@ -1,29 +1,23 @@
 package com.farrellcrafts.sudoku.view;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JPanel;
 
-public class IntroScreen extends MenuPanel {
-	private static final long serialVersionUID = 5522752020898125442L;
-	public static final int SIZE = 400;
-	
-	private JButton gameMode;
-	private JButton entryMode;
-	
+public class IntroScreen extends JPanel{
+	private static final int SIZE = 400;
+	private final IntroMenu menu;
 	
 	public IntroScreen(ActionListener emList, ActionListener gmList){
-		super(new EmptyBorder(4, 4, 4, 4), GridBagConstraints.NONE);
-		gameMode.addActionListener(gmList);
-		entryMode.addActionListener(emList);
+		setLayout(new GridLayout(2,1));
 		addTitle();
 		setPreferredSize(new Dimension(SIZE, SIZE));
+		menu = new IntroMenu(emList, gmList);
+		add(menu);
 	}
 	
 	private void addTitle(){
@@ -33,13 +27,5 @@ public class IntroScreen extends MenuPanel {
 		add(title);
 	}
 	
-	@Override
-	protected void initializeButtons() {
-		gameMode = new JButton("Play A Game");
-		gameMode.setPreferredSize(new Dimension(40, 40));
-		entryMode = new JButton("Enter A Puzzle");
-		entryMode.setPreferredSize(new Dimension(40, 40));
-		addComponents(new Component[]{gameMode, entryMode});
-	}	
 	
 }
