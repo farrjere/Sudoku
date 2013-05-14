@@ -26,7 +26,6 @@ public class SudokuTextField extends JTextField {
 	private DocumentFilter setFilter() {
 		NumberFilter numFilter = new NumberFilter(false, false);
 		SizeFilter sizeFilter = SizeFilter.maxChainSizeFilter(1, numFilter);
-		
 		return sizeFilter;
 	}
 	

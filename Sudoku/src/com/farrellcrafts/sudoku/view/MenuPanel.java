@@ -4,7 +4,6 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.AbstractButton;
 import javax.swing.JPanel;
 import javax.swing.border.AbstractBorder;
 

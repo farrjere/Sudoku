@@ -4,8 +4,6 @@ package com.farrellcrafts.sudoku.model;
  * This class represents a sudoku cell
  * The value if set originally cannot be changed
  * The value cannot be more than the maximum
- * @author jeremy
- *
  */
 final class Cell {
 

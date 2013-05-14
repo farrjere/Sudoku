@@ -1,4 +1,4 @@
-package com.farrellcrafts.sudoku.view;
+package com.farrellcrafts.sudoku.view.intro;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
+
+import com.farrellcrafts.sudoku.view.MenuPanel;
 
 public class IntroMenu extends MenuPanel {
 	private JButton gameMode;

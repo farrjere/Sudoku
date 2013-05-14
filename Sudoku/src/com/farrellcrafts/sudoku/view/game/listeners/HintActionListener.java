@@ -1,4 +1,4 @@
-package com.farrellcrafts.sudoku.view.listeners.game;
+package com.farrellcrafts.sudoku.view.game.listeners;
 
 import java.awt.event.ActionEvent;
 
@@ -37,7 +37,7 @@ public class HintActionListener extends TextAction {
 		if(textField == null){
 			return puzzle.getHint();
 		}else{
-			Hint hint =puzzle.getHint(textField.getRow(), textField.getCol());
+			Hint hint = puzzle.getHint(textField.getRow(), textField.getCol());
 			//Set a regular hint so something is returned
 			if(hint == null){
 				hint = puzzle.getHint();

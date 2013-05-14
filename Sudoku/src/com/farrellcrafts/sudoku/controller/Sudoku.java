@@ -1,8 +1,8 @@
 package com.farrellcrafts.sudoku.controller;
 
 import com.farrellcrafts.sudoku.view.SudokuFrame;
-import com.farrellcrafts.sudoku.view.listeners.EntryModeListener;
-import com.farrellcrafts.sudoku.view.listeners.GameModeListener;
+import com.farrellcrafts.sudoku.view.intro.listeners.EntryModeListener;
+import com.farrellcrafts.sudoku.view.intro.listeners.GameModeListener;
 
 public class Sudoku {
 	private static Sudoku sudoku;

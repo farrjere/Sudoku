@@ -55,7 +55,7 @@ public class PuzzleSolverTest {
 		}
 	}
 	
-	//@Ignore
+	@Ignore("Takes a long to run on purpose")
 	@Test
 	public void testFindMultipleSolutionsNoFinish(){
 		Date start = new Date();

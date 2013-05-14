@@ -12,13 +12,14 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import com.farrellcrafts.sudoku.model.Difficulty;
-import com.farrellcrafts.sudoku.view.listeners.NextListener;
-import com.farrellcrafts.sudoku.view.listeners.PrevListener;
-import com.farrellcrafts.sudoku.view.listeners.entry.SaveActionListener;
-import com.farrellcrafts.sudoku.view.listeners.game.HintActionListener;
-import com.farrellcrafts.sudoku.view.listeners.game.NewActionListener;
-import com.farrellcrafts.sudoku.view.listeners.game.ResetActionListener;
-import com.farrellcrafts.sudoku.view.listeners.game.SolveActionListener;
+import com.farrellcrafts.sudoku.view.entry.EntryMenu;
+import com.farrellcrafts.sudoku.view.entry.listeners.NextListener;
+import com.farrellcrafts.sudoku.view.entry.listeners.PrevListener;
+import com.farrellcrafts.sudoku.view.entry.listeners.SaveActionListener;
+import com.farrellcrafts.sudoku.view.game.GameMenu;
+import com.farrellcrafts.sudoku.view.game.listeners.CellListener;
+import com.farrellcrafts.sudoku.view.game.listeners.GameMenuListeners;
+import com.farrellcrafts.sudoku.view.intro.IntroScreen;
 
 public class SudokuFrame extends JFrame implements Runnable{
 
@@ -35,6 +36,7 @@ public class SudokuFrame extends JFrame implements Runnable{
 	private SudokuBoard boardPanel;
 	private IntroScreen intro;
 	private List<int[][]> solutions;
+	private CellListener cellListener;
 	
 	public SudokuFrame(ActionListener entryModeListener, ActionListener gameModeListener){
 		intro = new IntroScreen(entryModeListener, gameModeListener);
@@ -62,20 +64,14 @@ public class SudokuFrame extends JFrame implements Runnable{
 		frame.setVisible(true);
 	}
 	
-	public void setListenersOnGameMenu(HintActionListener hint,
-			NewActionListener newAction,
-			ResetActionListener reset,
-			SolveActionListener solve){
-		gameMenu.addListener(hint);
-		gameMenu.addListener(newAction);
-		gameMenu.addListener(reset);
-		gameMenu.addListener(solve);
+	public void setListenersOnGameMenu(GameMenuListeners listeners){
+		gameMenu.addListeners(listeners);
 	}
 	
 	public void setListenersOnEntryMenu(
-			com.farrellcrafts.sudoku.view.listeners.entry.ResetActionListener reset,
+			com.farrellcrafts.sudoku.view.entry.listeners.ResetActionListener reset,
 			SaveActionListener save,
-			com.farrellcrafts.sudoku.view.listeners.entry.SolveActionListener solve){
+			com.farrellcrafts.sudoku.view.entry.listeners.SolveActionListener solve){
 		entryMenu.addListenerToReset(reset);
 		entryMenu.addListenerToSave(save);
 		entryMenu.addListenerToSolve(solve);
@@ -90,7 +86,7 @@ public class SudokuFrame extends JFrame implements Runnable{
 	}
 	
 	private SudokuBoard getBoard(int[][] initialValues){
-		boardPanel = new SudokuBoard(initialValues);
+		boardPanel = new SudokuBoard(initialValues, cellListener);
 		return boardPanel;
 	}
 	
@@ -210,5 +206,14 @@ public class SudokuFrame extends JFrame implements Runnable{
 			solutionIndex--;
 		}
 		return solutionIndex;
+	}
+
+	public void solvedPuzzle(){
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setCellListener(CellListener cellListener) {
+		this.cellListener = cellListener;
 	}
 }

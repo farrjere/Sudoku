@@ -4,10 +4,12 @@ import com.farrellcrafts.sudoku.model.Difficulty;
 import com.farrellcrafts.sudoku.model.SudokuPuzzle;
 import com.farrellcrafts.sudoku.model.SudokuPuzzleLoader;
 import com.farrellcrafts.sudoku.view.SudokuFrame;
-import com.farrellcrafts.sudoku.view.listeners.game.HintActionListener;
-import com.farrellcrafts.sudoku.view.listeners.game.NewActionListener;
-import com.farrellcrafts.sudoku.view.listeners.game.ResetActionListener;
-import com.farrellcrafts.sudoku.view.listeners.game.SolveActionListener;
+import com.farrellcrafts.sudoku.view.game.listeners.CellListener;
+import com.farrellcrafts.sudoku.view.game.listeners.GameMenuListeners;
+import com.farrellcrafts.sudoku.view.game.listeners.HintActionListener;
+import com.farrellcrafts.sudoku.view.game.listeners.NewActionListener;
+import com.farrellcrafts.sudoku.view.game.listeners.ResetActionListener;
+import com.farrellcrafts.sudoku.view.game.listeners.SolveActionListener;
 
 public class SudokuGame {
 	private static SudokuGame game;
@@ -17,11 +19,8 @@ public class SudokuGame {
 	private SudokuPuzzleLoader loader;
 	
 	private SudokuPuzzle currentPuzzle;
-	
-	private NewActionListener newListener;
-	private ResetActionListener resetListener;
-	private HintActionListener hintListener;
-	private SolveActionListener solveListener;
+	private GameMenuListeners listeners;
+	private CellListener cellListener;
 	
 	protected SudokuGame(SudokuFrame frame){
 		game = this;
@@ -33,19 +32,14 @@ public class SudokuGame {
 		loader = new SudokuPuzzleLoader();
 		currentPuzzle = loader.getNextPuzzle(Difficulty.EASY);
 		sFrame.setBoardValues(currentPuzzle.getCurrentBoard());
-		hintListener = new HintActionListener(sFrame, currentPuzzle);
-		newListener = new NewActionListener(loader, sFrame, currentPuzzle);
-		resetListener = new ResetActionListener(sFrame, currentPuzzle);
-		solveListener = new SolveActionListener(sFrame, currentPuzzle);
-		sFrame.setListenersOnGameMenu(hintListener, newListener, resetListener, solveListener);
+		sFrame.setCellListener(cellListener);
+		listeners = new GameMenuListeners(sFrame, currentPuzzle, loader);
+		sFrame.setListenersOnGameMenu(listeners);
 		sFrame.setGameModeVisible();
 	}
 	
 	protected void updateCurrentPuzzle(){
-		currentPuzzle = loader.getCurrentPuzzle();
-		hintListener.updateSudokuPuzzle(currentPuzzle);
-		resetListener.updateSudokuPuzzle(currentPuzzle);
-		solveListener.updateSudokuPuzzle(currentPuzzle);
+		listeners.updatePuzzle();
 	}
 	
 	public static void updatePuzzle(){

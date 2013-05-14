@@ -93,7 +93,6 @@ public class SudokuPuzzleLoader {
 		return puzzles;
 	}
 	
-	//get the puzzle currently loaded
 	public SudokuPuzzle getCurrentPuzzle() {
 		return currentPuzzle;
 	}

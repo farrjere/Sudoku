@@ -1,4 +1,4 @@
-package com.farrellcrafts.sudoku.view;
+package com.farrellcrafts.sudoku.view.intro;
 
 import java.awt.Dimension;
 import java.awt.Font;

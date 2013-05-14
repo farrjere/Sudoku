@@ -7,20 +7,28 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
-import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
-public class ChildBoard extends JPanel {
+import com.farrellcrafts.sudoku.view.game.listeners.CellListener;
 
-	private static final long serialVersionUID = -1807083097488271435L;
-	private final JTextField[][] fields;
+public class Grid extends JPanel {
+
+	private JTextField[][] fields;
 	private SudokuBoard board;
 	
 
-	public ChildBoard(SudokuBoard board, int rows, int cols, int boardRow, int boardCol) {
+	public Grid(SudokuBoard board, GridDimensions gridDim, CellListener listener) {
 		this.board = board;
 		setBorder(new LineBorder(Color.LIGHT_GRAY));
-		setLayout(new GridLayout(rows, cols, 2, 2));
+		setLayout(new GridLayout(gridDim.getRows(), gridDim.getColumns(), 2, 2));
+		initializeFields(gridDim);
+	}
+	
+	private void initializeFields(GridDimensions gridDim){
+		int rows = gridDim.getRows();
+		int cols = gridDim.getColumns();
+		int boardRow = gridDim.getGridRow();
+		int boardCol = gridDim.getGridColumn();
 		fields = new JTextField[rows][cols];
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < cols; col++) {

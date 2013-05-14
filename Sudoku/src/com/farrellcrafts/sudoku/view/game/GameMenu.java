@@ -1,10 +1,12 @@
-package com.farrellcrafts.sudoku.view;
+package com.farrellcrafts.sudoku.view.game;
 
 import com.farrellcrafts.sudoku.model.Difficulty;
-import com.farrellcrafts.sudoku.view.listeners.game.HintActionListener;
-import com.farrellcrafts.sudoku.view.listeners.game.NewActionListener;
-import com.farrellcrafts.sudoku.view.listeners.game.ResetActionListener;
-import com.farrellcrafts.sudoku.view.listeners.game.SolveActionListener;
+import com.farrellcrafts.sudoku.view.MenuPanel;
+import com.farrellcrafts.sudoku.view.game.listeners.GameMenuListeners;
+import com.farrellcrafts.sudoku.view.game.listeners.HintActionListener;
+import com.farrellcrafts.sudoku.view.game.listeners.NewActionListener;
+import com.farrellcrafts.sudoku.view.game.listeners.ResetActionListener;
+import com.farrellcrafts.sudoku.view.game.listeners.SolveActionListener;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -49,24 +51,6 @@ public class GameMenu extends MenuPanel {
 		addComponents(new AbstractButton[]{easy, medium, hard, newButton, hintButton, resetButton, solveButton});
 	}
 	
-	
-	
-	public void addListener(SolveActionListener listener){
-		solveButton.addActionListener(listener);
-	}
-	
-	public void addListener(ResetActionListener listener){
-		resetButton.addActionListener(listener);
-	}
-	
-	public void addListener(HintActionListener listener){
-		hintButton.addActionListener(listener);
-	}
-	
-	public void addListener(NewActionListener listener){
-		newButton.addActionListener(listener);
-	}
-	
 	public Difficulty getDifficulty(){
 		for (Enumeration<AbstractButton> buttons = group.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
@@ -77,5 +61,12 @@ public class GameMenu extends MenuPanel {
         }
         return null;
     }
+
+	public void addListeners(GameMenuListeners listeners) {	
+		newButton.addActionListener(listeners.getNewActionListener());
+		hintButton.addActionListener(listeners.getHintActionListener());
+		resetButton.addActionListener(listeners.getResetActionListener());
+		solveButton.addActionListener(listeners.getSolveActionListener());
+	}
 	
 }

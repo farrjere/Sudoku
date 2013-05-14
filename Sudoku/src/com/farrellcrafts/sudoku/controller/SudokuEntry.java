@@ -3,9 +3,9 @@ package com.farrellcrafts.sudoku.controller;
 import java.util.List;
 
 import com.farrellcrafts.sudoku.view.SudokuFrame;
-import com.farrellcrafts.sudoku.view.listeners.entry.ResetActionListener;
-import com.farrellcrafts.sudoku.view.listeners.entry.SaveActionListener;
-import com.farrellcrafts.sudoku.view.listeners.entry.SolveActionListener;
+import com.farrellcrafts.sudoku.view.entry.listeners.ResetActionListener;
+import com.farrellcrafts.sudoku.view.entry.listeners.SaveActionListener;
+import com.farrellcrafts.sudoku.view.entry.listeners.SolveActionListener;
 
 public class SudokuEntry {
 	
