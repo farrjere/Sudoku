@@ -59,9 +59,6 @@ final class Cell {
 		return true;
 	}
 
-	/**
-	 * Clears the value if its editable
-	 */
 	public void clearValue() {
 		if(editable){
 			value = 0;
