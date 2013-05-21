@@ -20,7 +20,6 @@ public class SudokuGame {
 	
 	private SudokuPuzzle currentPuzzle;
 	private GameMenuListeners listeners;
-	private CellListener cellListener;
 	
 	protected SudokuGame(SudokuFrame frame){
 		game = this;
@@ -31,10 +30,10 @@ public class SudokuGame {
 	private void initializeGameMode(){
 		loader = new SudokuPuzzleLoader();
 		currentPuzzle = loader.getNextPuzzle(Difficulty.EASY);
-		sFrame.setBoardValues(currentPuzzle.getCurrentBoard());
-		sFrame.setCellListener(cellListener);
 		listeners = new GameMenuListeners(sFrame, currentPuzzle, loader);
 		sFrame.setListenersOnGameMenu(listeners);
+		sFrame.setBoardValues(currentPuzzle.getCurrentBoard());
+		
 		sFrame.setGameModeVisible();
 	}
 	

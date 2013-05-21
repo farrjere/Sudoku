@@ -3,7 +3,6 @@ package com.farrellcrafts.sudoku.view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
@@ -26,7 +25,7 @@ public class SudokuBoard extends JPanel  {
 	
 	public SudokuBoard(int[][] initialValues, CellListener boardListener){
 		rows = columns = (int)Math.sqrt(initialValues.length);
-		this.cellListener = cellListener;
+		this.cellListener = boardListener;
 		setupBoard(initialValues);
 	}
 

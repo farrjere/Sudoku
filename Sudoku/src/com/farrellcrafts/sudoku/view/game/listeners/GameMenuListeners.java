@@ -14,6 +14,7 @@ public class GameMenuListeners {
 	private NewActionListener newListener;
 	private ResetActionListener resetListener;
 	private SolveActionListener solveListener;
+	private CellListener cellListener;
 	private SudokuPuzzleLoader loader;
 
 	public GameMenuListeners(SudokuFrame frame, SudokuPuzzle puzzle, SudokuPuzzleLoader loader){
@@ -26,6 +27,7 @@ public class GameMenuListeners {
 		newListener = new NewActionListener(loader, frame, puzzle);
 		resetListener = new ResetActionListener(frame, puzzle);
 		solveListener = new SolveActionListener(frame, puzzle);
+		cellListener = new CellListener(frame, puzzle);
 	}
 	
 	public ActionListener getHintActionListener(){
@@ -49,6 +51,11 @@ public class GameMenuListeners {
 		solveListener.updateSudokuPuzzle(current);
 		resetListener.updateSudokuPuzzle(current);
 		hintListener.updateSudokuPuzzle(current);
+		cellListener.updateSudokuPuzzle(current);
+	}
+
+	public CellListener getCellListener() {
+		return cellListener;
 	}
 	
 }

@@ -29,6 +29,7 @@ public class NewActionListener implements ActionListener {
 			int[][] newBoard = puzzle.getCurrentBoard();
 			frame.setBoardValues(newBoard);
 			SudokuGame.updatePuzzle();
+			frame.setGameModeVisible();
 		}
 	}
 

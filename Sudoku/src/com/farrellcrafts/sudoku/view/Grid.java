@@ -15,9 +15,10 @@ public class Grid extends JPanel {
 
 	private JTextField[][] fields;
 	private SudokuBoard board;
-	
+	private CellListener listener;
 
 	public Grid(SudokuBoard board, GridDimensions gridDim, CellListener listener) {
+		this.listener = listener;
 		this.board = board;
 		setBorder(new LineBorder(Color.LIGHT_GRAY));
 		setLayout(new GridLayout(gridDim.getRows(), gridDim.getColumns(), 2, 2));
@@ -32,7 +33,7 @@ public class Grid extends JPanel {
 		fields = new JTextField[rows][cols];
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < cols; col++) {
-				JTextField field = new SudokuTextField((row+rows*boardRow), (col + cols*boardCol));
+				JTextField field = new SudokuTextField((row+rows*boardRow), (col + cols*boardCol), listener);
 				fields[row][col] = field;
 				add(field);
 			}

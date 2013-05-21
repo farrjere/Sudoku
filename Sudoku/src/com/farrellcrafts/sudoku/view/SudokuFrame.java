@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -17,6 +18,7 @@ import com.farrellcrafts.sudoku.view.entry.listeners.NextListener;
 import com.farrellcrafts.sudoku.view.entry.listeners.PrevListener;
 import com.farrellcrafts.sudoku.view.entry.listeners.SaveActionListener;
 import com.farrellcrafts.sudoku.view.game.GameMenu;
+import com.farrellcrafts.sudoku.view.game.SolvePuzzleScreen;
 import com.farrellcrafts.sudoku.view.game.listeners.CellListener;
 import com.farrellcrafts.sudoku.view.game.listeners.GameMenuListeners;
 import com.farrellcrafts.sudoku.view.intro.IntroScreen;
@@ -66,6 +68,7 @@ public class SudokuFrame extends JFrame implements Runnable{
 	
 	public void setListenersOnGameMenu(GameMenuListeners listeners){
 		gameMenu.addListeners(listeners);
+		cellListener = listeners.getCellListener();
 	}
 	
 	public void setListenersOnEntryMenu(
@@ -90,24 +93,26 @@ public class SudokuFrame extends JFrame implements Runnable{
 		return boardPanel;
 	}
 	
-	public void setGameModeVisible(){
-		mode = Mode.GAME;
+	private void setPanelAndMenuVisible(JPanel panel, MenuPanel menu){
 		getContentPane().removeAll();
-		getContentPane().add(boardPanel);
-		getContentPane().add(gameMenu, BorderLayout.AFTER_LINE_ENDS);
+		getContentPane().add(panel);
+		getContentPane().add(menu, BorderLayout.AFTER_LINE_ENDS);
 		pack();
 		setVisible(true);
+	}
+	
+	
+	
+	public void setGameModeVisible(){
+		mode = Mode.GAME;
+		setPanelAndMenuVisible(boardPanel, gameMenu);
 	}
 	
 	public void setEntryModeVisible(){
 		mode = Mode.ENTRY;
 		int[][] values = new int[9][9];
 		setBoardValues(values);
-		getContentPane().removeAll();
-		getContentPane().add(boardPanel);
-		getContentPane().add(entryMenu, BorderLayout.AFTER_LINE_ENDS);
-		pack();
-		setVisible(true);
+		setPanelAndMenuVisible(boardPanel, entryMenu);
 	}
 
 	public void setBoardValues(int[][] newBoard) {
@@ -209,8 +214,8 @@ public class SudokuFrame extends JFrame implements Runnable{
 	}
 
 	public void solvedPuzzle(){
-		// TODO Auto-generated method stub
-		
+		SolvePuzzleScreen sPuzzleScreen = new SolvePuzzleScreen(gameMenu);
+		setPanelAndMenuVisible(sPuzzleScreen, gameMenu);
 	}
 
 	public void setCellListener(CellListener cellListener) {
