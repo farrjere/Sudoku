@@ -1,23 +1,17 @@
 package com.farrellcrafts.sudoku.view.game;
 
-import com.farrellcrafts.sudoku.model.Difficulty;
-import com.farrellcrafts.sudoku.view.MenuPanel;
-import com.farrellcrafts.sudoku.view.game.listeners.GameMenuListeners;
-import com.farrellcrafts.sudoku.view.game.listeners.HintActionListener;
-import com.farrellcrafts.sudoku.view.game.listeners.NewActionListener;
-import com.farrellcrafts.sudoku.view.game.listeners.ResetActionListener;
-import com.farrellcrafts.sudoku.view.game.listeners.SolveActionListener;
-
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
+
+import com.farrellcrafts.sudoku.model.Difficulty;
+import com.farrellcrafts.sudoku.view.MenuPanel;
+import com.farrellcrafts.sudoku.view.game.listeners.GameMenuListeners;
 
 public class GameMenu extends MenuPanel {
 	private static final long serialVersionUID = 678727189285841459L;

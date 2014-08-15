@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.AbstractBorder;
 
 public abstract class MenuPanel extends JPanel {
+	private static final long serialVersionUID = 1L;
 	private GridBagConstraints gbc;
 	protected MenuPanel(AbstractBorder border, int fill){
 		setLayout(new GridBagLayout());

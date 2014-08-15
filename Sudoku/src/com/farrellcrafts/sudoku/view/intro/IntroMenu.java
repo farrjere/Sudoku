@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import com.farrellcrafts.sudoku.view.MenuPanel;
 
 public class IntroMenu extends MenuPanel {
+	private static final long serialVersionUID = 1L;
 	private JButton gameMode;
 	private JButton entryMode;
 	private Dimension buttonDim = new Dimension(40, 40);

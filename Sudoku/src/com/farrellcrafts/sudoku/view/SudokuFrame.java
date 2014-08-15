@@ -25,6 +25,7 @@ import com.farrellcrafts.sudoku.view.intro.IntroScreen;
 
 public class SudokuFrame extends JFrame implements Runnable{
 
+	private static final long serialVersionUID = 1L;
 	private static final String TITLE = "Sudoku";
 	private static final Component NO_SOLUTIONS = new JLabel("There were no solutions for the given puzzle");
 	private enum Mode{

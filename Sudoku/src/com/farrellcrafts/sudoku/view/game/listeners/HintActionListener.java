@@ -10,6 +10,7 @@ import com.farrellcrafts.sudoku.view.SudokuFrame;
 import com.farrellcrafts.sudoku.view.SudokuTextField;
 
 public class HintActionListener extends TextAction {
+	private static final long serialVersionUID = 1L;
 	private SudokuFrame frame;
 	private SudokuPuzzle puzzle;
 	public HintActionListener(SudokuFrame frame, SudokuPuzzle puzzle){

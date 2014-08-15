@@ -11,6 +11,7 @@ import com.farrellcrafts.document_filters.SizeFilter;
 import com.farrellcrafts.sudoku.view.game.listeners.CellListener;
 
 public class SudokuTextField extends JTextField {
+	private static final long serialVersionUID = 1L;
 	private static final Font font = new Font("SansSerif", Font.BOLD, 20);
 	private final DocumentFilter filter = setFilter();
 	private int row;

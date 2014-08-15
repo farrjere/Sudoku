@@ -1,10 +1,7 @@
 package com.farrellcrafts.sudoku.view.game.listeners;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-
-import javax.swing.text.TextAction;
 
 import com.farrellcrafts.sudoku.model.SudokuPuzzle;
 import com.farrellcrafts.sudoku.view.SudokuFrame;

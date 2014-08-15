@@ -1,6 +1,5 @@
 package com.farrellcrafts.sudoku.model;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 

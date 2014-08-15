@@ -16,7 +16,7 @@ import com.farrellcrafts.sudoku.view.game.listeners.CellListener;
  * @author Jeremy Farrell farrjere@isu.edu
  */
 public class SudokuBoard extends JPanel  {
-
+	private static final long serialVersionUID = 1L;
 	public final int rows;
 	public final int columns;
 	public static final int SIZE = 400;

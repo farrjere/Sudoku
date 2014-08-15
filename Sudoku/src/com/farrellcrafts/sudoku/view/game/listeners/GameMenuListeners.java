@@ -1,8 +1,6 @@
 package com.farrellcrafts.sudoku.view.game.listeners;
 
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.farrellcrafts.sudoku.model.SudokuPuzzle;
 import com.farrellcrafts.sudoku.model.SudokuPuzzleLoader;

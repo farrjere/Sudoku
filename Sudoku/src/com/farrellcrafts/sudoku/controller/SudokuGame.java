@@ -4,12 +4,7 @@ import com.farrellcrafts.sudoku.model.Difficulty;
 import com.farrellcrafts.sudoku.model.SudokuPuzzle;
 import com.farrellcrafts.sudoku.model.SudokuPuzzleLoader;
 import com.farrellcrafts.sudoku.view.SudokuFrame;
-import com.farrellcrafts.sudoku.view.game.listeners.CellListener;
 import com.farrellcrafts.sudoku.view.game.listeners.GameMenuListeners;
-import com.farrellcrafts.sudoku.view.game.listeners.HintActionListener;
-import com.farrellcrafts.sudoku.view.game.listeners.NewActionListener;
-import com.farrellcrafts.sudoku.view.game.listeners.ResetActionListener;
-import com.farrellcrafts.sudoku.view.game.listeners.SolveActionListener;
 
 public class SudokuGame {
 	private static SudokuGame game;

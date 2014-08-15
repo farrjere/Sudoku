@@ -18,6 +18,7 @@ import javax.swing.Timer;
 
 public class SolvePuzzleScreen extends JPanel implements ActionListener {
 	
+	private static final long serialVersionUID = 1L;
 	private GameMenu menu;
 	private Timer timer;
 	private List<Firework> fireworks = new ArrayList<Firework>();

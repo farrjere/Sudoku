@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import com.farrellcrafts.sudoku.model.SudokuPuzzle;
-import com.farrellcrafts.sudoku.view.SudokuBoard;
 import com.farrellcrafts.sudoku.view.SudokuFrame;
 
 public class SolveActionListener implements ActionListener{

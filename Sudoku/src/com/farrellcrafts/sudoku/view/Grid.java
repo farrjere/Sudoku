@@ -12,7 +12,7 @@ import javax.swing.text.Document;
 import com.farrellcrafts.sudoku.view.game.listeners.CellListener;
 
 public class Grid extends JPanel {
-
+	private static final long serialVersionUID = 1L;
 	private JTextField[][] fields;
 	private SudokuBoard board;
 	private CellListener listener;
