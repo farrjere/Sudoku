@@ -92,8 +92,8 @@ public class SudokuPuzzleTest {
 		assertEquals("", values[hint.getRow()][hint.getColumn()]);
 		assertEquals("", smallValues[smallHint.getRow()][smallHint.getColumn()]);
 		//Set after hint and equal to hint value
-		assertEquals(hint.getValue(), puzzle.getCellValue(hint.getRow(), hint.getColumn()));
-		assertEquals(smallHint.getValue(), smallPuzzle.getCellValue(smallHint.getRow(), smallHint.getColumn()));
+		assertEquals(Integer.toString(hint.getValue()), puzzle.getCellValue(hint.getRow(), hint.getColumn()));
+		assertEquals(Integer.toString(smallHint.getValue()), smallPuzzle.getCellValue(smallHint.getRow(), smallHint.getColumn()));
 	}
 	
 }
